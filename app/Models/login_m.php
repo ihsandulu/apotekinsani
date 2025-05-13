@@ -19,7 +19,7 @@ class login_m extends core_m
 
         if (isset($_POST["email"]) && isset($_POST["password"])) {
             $builder = $this->db->table("user")
-                ->select("*, user.store_id AS store_id")
+                ->select("*, user.store_id AS store_id, store.store_picture AS store_picture")
                 ->join("position", "position.position_id=user.position_id", "left")
                 ->join("store", "store.store_id=user.store_id", "left")
                 ->where("user_email", $this->request->getVar("email"))
