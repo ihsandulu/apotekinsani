@@ -31,9 +31,9 @@ class login_m extends core_m
          
             // define('production',$this->db->database);
             // echo production;
-            // $lastquery = $this->db->getLastQuery();
-            // echo $lastquery;
-            // die;
+            $lastquery = $this->db->getLastQuery();
+            echo $lastquery;
+            die;
         //    $query = $this->db->query("SELECT * FROM `user`  WHERE `user_email` = 'ihsan.dulu@gmail.com'");
         //     echo $query->getFieldCount();
             // die;
