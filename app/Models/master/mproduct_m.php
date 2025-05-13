@@ -82,7 +82,8 @@ class mproduct_m extends core_m
                 //$path = $this->request->getFile('uploadedFile')->store($direktori, $namabaru);
                 //$file->move($direktori, $namabaru)
                 if ($file->move($direktori, $product_picture)) {
-                    $data['uploadproduct_picture'] = "Upload Success !".$direktori."|".$product_picture;
+                    // $data['uploadproduct_picture'] = "Upload Success !".$direktori."|".$product_picture;
+                    $data['uploadproduct_picture'] = "Upload Success !";
                     $input['product_picture'] = $product_picture;
                 } else {
                     $data['uploadproduct_picture'] = "Upload Gagal !";
