@@ -233,7 +233,7 @@
                         <?php if ($message != "") { ?>
                             <div class="alert alert-info alert-dismissable">
                                 <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                                <strong><?= $message; ?></strong>
+                                <strong><?= $message; ?></strong><br/><?= $uploadproduct_picture; ?>
                             </div>
                         <?php } ?>
 
