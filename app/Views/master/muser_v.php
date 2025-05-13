@@ -86,7 +86,7 @@
                                 <div class="form-group">
                                     <label class="control-label col-sm-2" for="user_password">Password:</label>
                                     <div class="col-sm-10">
-                                        <input required type="text" autofocus class="form-control" id="user_password" name="user_password" placeholder="<?=$ketpassword;?>" value="">
+                                        <input type="text" autofocus class="form-control" id="user_password" name="user_password" placeholder="<?=$ketpassword;?>" value="">
                                     </div>
                                 </div>
 
