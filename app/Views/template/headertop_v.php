@@ -9,7 +9,8 @@
                     $storepicture=session()->get("store_picture");
                     $store_name=session()->get("store_name");
                     if($storepicture!=""){$user_image="images/store_picture/".$storepicture;}else{$user_image="images/store_picture/no_image.png";}?>
-                    <img width="30" height="30" src="<?=base_url($user_image);?>" alt="homepage" class="dark-logo" />
+                    <img width="30" height="30" src="<?=base_url($user_image);?>" alt="<?=$user_image;?>" class="dark-logo" />
+                    
                 </b>
                 <!--End Logo icon -->
                 <!-- Logo text -->
