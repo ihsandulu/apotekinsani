@@ -189,6 +189,12 @@
                                 </div>     
                                 <hr/>                       
                                 <div class="form-group">
+                                    <label class="control-label col-sm-2" for="product_batch">Batch:</label>
+                                    <div class="col-sm-10">
+                                        <input type="text"  class="form-control" id="product_batch" name="product_batch" placeholder="" value="<?= $product_batch; ?>">
+                                    </div>
+                                </div>                            
+                                <div class="form-group">
                                     <label class="control-label col-sm-2" for="product_ube">UBE No.:</label>
                                     <div class="col-sm-10">
                                         <input type="text"  class="form-control" id="product_ube" name="product_ube" placeholder="" value="<?= $product_ube; ?>">
@@ -249,6 +255,7 @@
                                         <th>Kategori</th>
                                         <th>Unit</th>
                                         <th>Produk</th>
+                                        <th>Batch</th>
                                         <th>Ube</th>
                                         <th>Limit</th>
                                         <th>Stok</th>
@@ -336,6 +343,7 @@
                                             <td><?= $usr->category_name; ?></td>
                                             <td><?= $usr->unit_name; ?></td>
                                             <td><?= $usr->product_name; ?></td>
+                                            <td><?= $usr->product_batch; ?></td>
                                             <td><?= $usr->product_ube; ?></td>
                                             <?php 
                                             $limit=$usr->product_countlimit; 
