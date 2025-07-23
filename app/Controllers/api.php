@@ -26,6 +26,13 @@ class api extends baseController
         echo $this->db->getLastQuery();
     }
 
+    public function ibatch(){
+        $where["product_id"] = $this->request->getGET("product_id");
+        $input["product_batch"] = $this->request->getGET("product_batch");
+        $this->db->table('product')->where($where)->update($input);
+        echo $this->db->getLastQuery();
+    }
+
     public function createstore()
     {       
         //input store 
