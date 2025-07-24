@@ -4,3 +4,5 @@ writable/logs/
 writable/session/*
 !writable/session/index.html
 writable/debugbar/
+/public/images/product_picture/*
+!/public/images/product_picture/.gitkeep
