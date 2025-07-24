@@ -69,7 +69,7 @@
         setTimeout(function(){
             $(".scroll-sidebar").css({
                 "height":"inherit",
-                "overflow": "auto"
+                "overflow": "scroll"
             });
         },500);
         

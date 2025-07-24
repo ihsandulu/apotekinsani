@@ -121,6 +121,7 @@ if ($this->session->get('user_id') == "") {
         /* Hide scrollbar for Chrome, Safari and Opera */
         .hidebar::-webkit-scrollbar {
             display: none;
+            overflow: auto;
         }
 
         /* Hide scrollbar for IE, Edge and Firefox */
@@ -129,6 +130,7 @@ if ($this->session->get('user_id') == "") {
             /* IE and Edge */
             scrollbar-width: none;
             /* Firefox */
+            overflow: auto;
         }
 
         .hide {

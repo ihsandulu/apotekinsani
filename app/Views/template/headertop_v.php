@@ -35,7 +35,7 @@
                 <script>
                     function bukasidebar(){
                         setTimeout(() => {
-                            $(".mini-sidebar.fix-sidebar .left-sidebar").css({"position":"fixed","left":"0px"}).toggle();
+                            $(".mini-sidebar.fix-sidebar .left-sidebar").css({"position":"fixed","left":"0px","overflow":"auto"});
                         }, 100);                        
                     }
                     $(document).ready(function(){
