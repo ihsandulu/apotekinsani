@@ -987,7 +987,7 @@ class transaction extends baseController
                 $sell = 0;
             }
             ?>
-            <div class="col-2 divimg_product <?= $disabled; ?>" onclick="<?= $insertnota; ?>">
+            <div class="col-3 divimg_product <?= $disabled; ?>" onclick="<?= $insertnota; ?>">
                 <figure class="caption-1 pointer">
                     <img src="<?= base_url("images/product_picture/" . $gambar); ?>" alt="" class="w-100 card-img-top  img_product">
                     <figcaption class="px-1 py-1 text-center text-light">

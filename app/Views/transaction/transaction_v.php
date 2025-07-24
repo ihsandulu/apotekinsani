@@ -47,7 +47,7 @@
 
     .img_product {
         width: 100%;
-        height: 70px !important;
+        height: auto !important;
         border: rgba(155, 155, 155, 0.5) solid 1px;
         border-radius: 4px;
     }
@@ -125,7 +125,8 @@
     td {
         font-size: 10px;
         padding: 3px;
-    }
+        border: rgba(179, 174, 174, 0.5) solid 1px;
+    }    
 </style>
 
 
@@ -134,13 +135,13 @@
         <div class="card">
             <div class="card-body">
                 <div class="row">
-                    <div class="col-2"><a href="<?=base_url();?>" class=" btn btn-warning fa fa-home"></a></div>
+                    <div class="col-2"><a href="<?=base_url();?>" class=" btn btn-warning btn-block btn-xs fa fa-home"></a></div>
                     <div class="col-5 row">
                         <div class="col-6">
-                            <button onclick="plistproduct('gambar','');" class="btn btn-info btn-block btn-xs">Gbr</button>
+                            <button onclick="plistproduct('gambar','');" class="btn btn-info btn-block btn-xs fa fa-file-image-o"></button>
                         </div>
                         <div class="col-6">
-                            <button onclick="plistproduct('list','');" class="btn btn-info btn-block btn-xs">List</button>
+                            <button onclick="plistproduct('list','');" class="btn btn-info btn-block btn-xs fa fa-list"></button>
                         </div>
                     </div>
                     <div class="col-5">
