@@ -70,6 +70,7 @@
 .disabled{opacity: 0.1;}
 .btn{font-size: 12px;}
 .f12, th,td{font-size: 10px;}
+th,td{font-size: 10px; padding: 3px;}
 </style>
 
 

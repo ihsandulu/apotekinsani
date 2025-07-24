@@ -1003,7 +1003,7 @@ class transaction extends baseController
     {
         ?>
         <!-- <table id="" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%"> -->
-        <table id="dataTable" class="table table-condensed table-hover ">
+        <table id="dataTable" border="1" class="  ">
             <thead class="">
                 <tr>
                     <th>Category</th>
