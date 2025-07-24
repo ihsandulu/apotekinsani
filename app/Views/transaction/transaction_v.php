@@ -79,16 +79,16 @@
                     <div class="row"> 
                         <div class="col-6 row">                       
                             <div class="col-6">
-                                <button onclick="plistproduct('gambar','');" class="btn btn-info btn-block">Gbr</button>
+                                <button onclick="plistproduct('gambar','');" class="btn btn-info btn-block btn-xs">Gbr</button>
                             </div>                               
                             <div class="col-6">
-                                <button onclick="plistproduct('list','');" class="btn btn-info btn-block">List</button>
+                                <button onclick="plistproduct('list','');" class="btn btn-info btn-block btn-xs">List</button>
                             </div>                        
                         </div>                       
                         <div class="col-6">
                             <div class="input-group mb-3">
                                 <input type="hidden" id="typesearch" value="gambar"/>
-                                <input  onfocusin="$('#fokus').val('cari')"  onkeyup="cariproduk();" id="cariproduk" type="text" class="form-control" placeholder="Cari Produk" aria-label="Cari Produk" aria-describedby="basic-addon2">
+                                <input  onfocusin="$('#fokus').val('cari')"  onkeyup="cariproduk();" id="cariproduk" type="text" class="" placeholder="Cari Produk" aria-label="Cari Produk" aria-describedby="basic-addon2">
                                 <div class="input-group-append">
                                     <button class="btn btn-outline-secondary fa fa-search" type="button"></button>
                                 </div>
@@ -109,7 +109,7 @@
                     <div id="test"></div>
                     <div class="col-12">                       
                         <div class="input-group mb-3">
-                            <input onfocusin="$('#fokus').val('barcode')" id="inputbarcode" autofocus type="text" class="form-control" placeholder="Scan Barcode" aria-label="Scan Barcode" aria-describedby="basic-addon2">
+                            <input onfocusin="$('#fokus').val('barcode')" id="inputbarcode" autofocus type="text" class="" placeholder="Scan Barcode" aria-label="Scan Barcode" aria-describedby="basic-addon2">
                             <div class="input-group-append">
                                 <button class="btn btn-outline-secondary fa fa-edit" type="button"></button>
                             </div>
@@ -169,10 +169,10 @@
                         ?>
                         <form class="form-inline" >
                             <label for="from">Dari:</label>&nbsp;
-                            <input onchange="listnota(-1)" type="date" id="from" name="from" class="form-control w-date" value="<?=$from;?>" style="width: 80px;font-size: 10px;">&nbsp;
+                            <input onchange="listnota(-1)" type="date" id="from" name="from" class=" w-date" value="<?=$from;?>" style="width: 80px;font-size: 10px;">&nbsp;
                             <label for="to">Ke:</label>&nbsp;
-                            <input onchange="listnota(-1)" type="date" id="to" name="to" class="form-control w-date" value="<?=$to;?>" style="width: 80px;font-size: 10px;">&nbsp;&nbsp;
-                            <button onclick="hariini()" type="button" class="btn btn-primary">Hari Ini</button>
+                            <input onchange="listnota(-1)" type="date" id="to" name="to" class=" w-date" value="<?=$to;?>" style="width: 80px;font-size: 10px;">&nbsp;&nbsp;
+                            <button onclick="hariini()" type="button" class="btn btn-primary btn-xs">Hari Ini</button>
                         </form>
                         
                         <div class="my-1" id="listnota"></div>  
