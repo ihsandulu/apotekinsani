@@ -127,7 +127,12 @@
         padding: 3px;
         border: rgba(179, 174, 174, 0.5) solid 1px;
     }
-    input{border: rgba(179, 174, 174, 0.5) solid 1px; border-radius: 10px; padding: 3px;}
+
+    input {
+        border: rgba(179, 174, 174, 0.5) solid 1px;
+        border-radius: 10px;
+        padding: 3px;
+    }
 </style>
 
 
@@ -140,7 +145,7 @@
                         <button onclick="plistproduct('gambar','');" class="btn btn-info btn-xs fa fa-file-image-o"></button>
                         <button onclick="plistproduct('list','');" class="btn btn-info btn-xs fa fa-list"></button>
                     </div>
-                    
+
                     <div class="col-6 mb-3">
                         <input type="hidden" id="typesearch" value="gambar" />
                         <input onfocusin="$('#fokus').val('cari')" onkeyup="cariproduk();" id="cariproduk" type="text" class="" placeholder="Cari Produk" aria-label="Cari Produk" aria-describedby="basic-addon2" style="width: 100%;">
@@ -346,6 +351,7 @@
                                         <button type="button" onclick="changeQty(-1)">−</button>
 
                                         <input
+                                            inputmode="none"
                                             type="number"
                                             id="qtyproduct"
                                             class="form-control mb-2 mr-sm-2"
