@@ -111,7 +111,7 @@ th,td{font-size: 10px; padding: 3px;}
                     <div id="test"></div>
                     <div class="col-12">                       
                         <div class="input-group mb-3">
-                            <input onfocusin="$('#fokus').val('barcode')" id="inputbarcode" autofocus type="text" class="" placeholder="Scan Barcode" aria-label="Scan Barcode" aria-describedby="basic-addon2">
+                            <input inputmode="none" onfocusin="$('#fokus').val('barcode')" id="inputbarcode" autofocus type="text" class="" placeholder="Scan Barcode" aria-label="Scan Barcode" aria-describedby="basic-addon2">
                             <div class="input-group-append">
                                 <button class="btn btn-outline-secondary fa fa-edit" type="button"></button>
                             </div>

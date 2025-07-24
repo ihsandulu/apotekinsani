@@ -749,7 +749,7 @@ class transaction extends baseController
                 <input type="hidden" id="transaction_id" value="<?= $transaction->transaction_id; ?>" />
                 <input type="hidden" id="transactiond_id" value="0" />
                 <input type="hidden" id="transaction_no" value="<?= $transaction->transaction_no; ?>" />
-                <table id="" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
+                <table id="" class="display nowrap " border="1" cellspacing="0" width="100%">
                     <!-- <table id="dataTable" class="table table-condensed table-hover w-auto dtable"> -->
                     <thead class="">
                         <tr>
