@@ -1003,14 +1003,14 @@ class transaction extends baseController
     {
         ?>
         <!-- <table id="" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%"> -->
-        <table id="dataTable" border="1" class="  ">
+        <table id="dataTable" border="1" class="  " style="width:100%;">
             <thead class="">
                 <tr>
                     <th>Category</th>
                     <th>Product</th>
-                    <th>Ube</th>
+                    <!-- <th>Ube</th>
                     <th>Batch</th>
-                    <th>Exp Date</th>
+                    <th>Exp Date</th> -->
                     <th>Stock</th>
                     <th>Price</th>
                 </tr>
@@ -1064,9 +1064,9 @@ class transaction extends baseController
                     <tr class="pointer <?= $disabled; ?>" onclick="<?= $insertnota; ?>">
                         <td><?= $usr->category_name; ?></td>
                         <td><?= $usr->product_name; ?></td>
-                        <td><?= $usr->product_ube; ?></td>
+                        <!-- <td><?= $usr->product_ube; ?></td>
                         <td><?= $usr->product_batch; ?></td>
-                        <td><?= $usr->product_expiredate; ?></td>
+                        <td><?= $usr->product_expiredate; ?></td> -->
                         <?php
                         $limit = $usr->product_countlimit;
                         $stock = $usr->product_stock;

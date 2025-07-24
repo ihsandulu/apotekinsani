@@ -135,23 +135,16 @@
         <div class="card">
             <div class="card-body">
                 <div class="row">
-                    <div class="col-2"><a href="<?=base_url();?>" class=" btn btn-warning btn-block btn-xs fa fa-home"></a></div>
-                    <div class="col-5 row">
-                        <div class="col-6">
-                            <button onclick="plistproduct('gambar','');" class="btn btn-info btn-block btn-xs fa fa-file-image-o"></button>
-                        </div>
-                        <div class="col-6">
-                            <button onclick="plistproduct('list','');" class="btn btn-info btn-block btn-xs fa fa-list"></button>
+                    <div class="col-1"><a href="<?=base_url();?>" class=" btn btn-warning btn-xs fa fa-home"></a></div>
+                    <div class="col-3 row">
+                        <div class="col-12">
+                            <button onclick="plistproduct('gambar','');" class="btn btn-info btn-xs fa fa-file-image-o"></button>
+                            &nbsp;&nbsp;<button onclick="plistproduct('list','');" class="btn btn-info btn-xs fa fa-list"></button>
                         </div>
                     </div>
-                    <div class="col-5">
-                        <div class="input-group mb-3">
-                            <input type="hidden" id="typesearch" value="gambar" />
-                            <input onfocusin="$('#fokus').val('cari')" onkeyup="cariproduk();" id="cariproduk" type="text" class="" placeholder="Cari Produk" aria-label="Cari Produk" aria-describedby="basic-addon2">
-                            <div class="input-group-append">
-                                <button class="btn btn-outline-secondary fa fa-search" type="button"></button>
-                            </div>
-                        </div>
+                    <div class="col-8 mb-3">
+                         <input type="hidden" id="typesearch" value="gambar" />
+                            <input onfocusin="$('#fokus').val('cari')" onkeyup="cariproduk();" id="cariproduk" type="text" class="" placeholder="Cari Produk" aria-label="Cari Produk" aria-describedby="basic-addon2" style="width: 100%;">
                     </div>
                     <div class="col-12 row" id="listproduct">
 
@@ -166,13 +159,8 @@
             <div class="card-body row">
                 <input id="fokus" type="hidden" value="barcode" />
                 <div id="test"></div>
-                <div class="col-12">
-                    <div class="input-group mb-3">
-                        <input inputmode="none" onfocusin="$('#fokus').val('barcode')" id="inputbarcode" autofocus type="text" class="" placeholder="Scan Barcode" aria-label="Scan Barcode" aria-describedby="basic-addon2">
-                        <div class="input-group-append">
-                            <button class="btn btn-outline-secondary fa fa-edit" type="button"></button>
-                        </div>
-                    </div>
+                <div class="col-12 mb-3">
+                    <input inputmode="none" onfocusin="$('#fokus').val('barcode')" id="inputbarcode" autofocus type="text" class="" placeholder="Scan Barcode" aria-label="Scan Barcode" aria-describedby="basic-addon2" style="width: 100%;">
                 </div>
                 <div class="col-12 row">
                     <input type="hidden" id="modalstatus" value="keluar" />
