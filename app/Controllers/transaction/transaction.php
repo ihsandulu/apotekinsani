@@ -333,7 +333,7 @@ class transaction extends baseController
             ->get();
         foreach ($listnota->getResult() as $listnota) {
 ?>
-            <button onclick="nota(<?= $listnota->transaction_id; ?>);" class="btn btn-outline-secondary mb-2  btn-child" type="button"><small><?= $listnota->transaction_no; ?></small></button>
+            <button onclick="nota(<?= $listnota->transaction_id; ?>);" class="btn btn-outline-secondary mb-2 btn-xs btn-child f12" type="button"><?= $listnota->transaction_no; ?></button>
         <?php
         }
     }

@@ -69,6 +69,7 @@
 }
 .disabled{opacity: 0.1;}
 .btn{font-size: 12px;}
+.f12, th,td{font-size: 10px;}
 </style>
 
 <div class='container-fluid'>
@@ -167,15 +168,14 @@
                         }
 
                         ?>
-                        <form class="form-inline" >
+                        <form class="form-inline col-12 " >
                             <label for="from">Dari:</label>&nbsp;
                             <input onchange="listnota(-1)" type="date" id="from" name="from" class=" w-date" value="<?=$from;?>" style="width: 80px;font-size: 10px;">&nbsp;
                             <label for="to">Ke:</label>&nbsp;
                             <input onchange="listnota(-1)" type="date" id="to" name="to" class=" w-date" value="<?=$to;?>" style="width: 80px;font-size: 10px;">&nbsp;&nbsp;
                             <button onclick="hariini()" type="button" class="btn btn-primary btn-xs">Today</button>
                         </form>
-                        
-                        <div class="my-1" id="listnota"></div>  
+                        <div class="my-1" id="listnota" style="display: block;"></div>  
                         <div class="separator my-3"></div>                    
                     </div>
                     <div class="col-12" id="nota">
