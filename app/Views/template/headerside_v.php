@@ -1,4 +1,6 @@
 <div class="left-sidebar">
+    <!-- Sidebar scroll-->
+    <div class="scroll-sidebar hidebar" style="overflow:scroll;">
         <!-- Sidebar navigation-->
         <nav class="sidebar-nav">
             <ul id="sidebarnav">
@@ -572,5 +574,6 @@
             </ul>
         </nav>
         <!-- End Sidebar navigation -->
-   
+    </div>
+    <!-- End Sidebar scroll-->
 </div>
