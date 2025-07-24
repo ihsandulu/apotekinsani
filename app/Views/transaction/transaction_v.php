@@ -79,7 +79,7 @@
                     <div class="row"> 
                         <div class="col-6 row">                       
                             <div class="col-6">
-                                <button onclick="plistproduct('gambar','');" class="btn btn-info btn-block">Gambar</button>
+                                <button onclick="plistproduct('gambar','');" class="btn btn-info btn-block">Gbr</button>
                             </div>                               
                             <div class="col-6">
                                 <button onclick="plistproduct('list','');" class="btn btn-info btn-block">List</button>
