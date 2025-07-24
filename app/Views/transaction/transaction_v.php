@@ -127,6 +127,7 @@
         padding: 3px;
         border: rgba(179, 174, 174, 0.5) solid 1px;
     }
+    input{border: rgba(179, 174, 174, 0.5) solid 1px; border-radius: 10px; padding: 3px;}
 </style>
 
 
