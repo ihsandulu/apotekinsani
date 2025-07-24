@@ -20,13 +20,141 @@ class api extends baseController
     }
 
     public function active()
-    {        
+    {
         $input["store_active"] = $this->request->getGET("store_active");
         $this->db->table('store')->update($input, array("store_id" => $this->request->getGET("store_id")));
         echo $this->db->getLastQuery();
     }
 
-    public function ibatch(){
+    public function compressFolder()
+    {
+        error_reporting(E_ALL);
+        ini_set('display_errors', 1); // tampilkan error di layar
+
+        $src = $this->request->getGet("src"); // pastikan param src dikirim via URL
+        if (!$src) {
+            echo "❌ Parameter src tidak ditemukan.";
+            return;
+        }
+
+        $folderPath = FCPATH . 'images/' . $src . '/'; // tambahkan slash di akhir
+
+        if (!is_dir($folderPath)) {
+            echo "❌ Folder tidak ditemukan: $folderPath";
+            return;
+        }
+
+        $quality = 70; // Kualitas kompres, 1–100 (semakin kecil, semakin ringan)
+        $maxWidth = 300;
+
+        $files = scandir($folderPath);
+        if (!$files) {
+            echo "❌ Gagal membaca folder: $folderPath";
+            return;
+        }
+
+        foreach ($files as $file) {
+            if (in_array($file, ['.', '..'])) continue;
+
+            $filePath = $folderPath . $file;
+
+            if (!file_exists($filePath)) {
+                echo "❌ File tidak ditemukan: $filePath<br>";
+                continue;
+            }
+
+            $imageType = @exif_imagetype($filePath);
+            if (!in_array($imageType, [IMAGETYPE_JPEG, IMAGETYPE_PNG])) {
+                echo "⏩ Skip non-gambar: $file<br>";
+                continue;
+            }
+
+            list($originalWidth, $originalHeight) = getimagesize($filePath);
+
+            // Buat resource gambar
+            if ($imageType == IMAGETYPE_JPEG) {
+                $image = imagecreatefromjpeg($filePath);
+            } elseif ($imageType == IMAGETYPE_PNG) {
+                $image = imagecreatefrompng($filePath);
+            } else {
+                continue;
+            }
+
+            if ($originalWidth > $maxWidth) {
+                $ratio = $maxWidth / $originalWidth;
+                $newWidth = $maxWidth;
+                $newHeight = $originalHeight * $ratio;
+
+                $resized = imagecreatetruecolor($newWidth, $newHeight);
+                imagecopyresampled($resized, $image, 0, 0, 0, 0, $newWidth, $newHeight, $originalWidth, $originalHeight);
+            } else {
+                $resized = $image;
+            }
+
+            // Simpan ulang gambar (replace)
+            if ($imageType == IMAGETYPE_JPEG) {
+                imagejpeg($resized, $filePath, $quality);
+            } elseif ($imageType == IMAGETYPE_PNG) {
+                $png_quality = (int)((100 - $quality) / 10);
+                imagepng($resized, $filePath, $png_quality);
+            }
+
+            // Bersihkan memori
+            imagedestroy($image);
+            if ($resized !== $image) {
+                imagedestroy($resized);
+            }
+
+            echo "✔ Gambar dikompres: $file<br>";
+        }
+    }
+
+
+    public function tampilgambartercompress()
+    {
+        /* <img src="<?= base_url("api/tampilgambartercompress?src=images/product_picture/15_16_19_download_(18).jpg&q=60"); ?>" alt="Gambar Produk" class="img-fluid"> */
+        //parameter q adalah tingkat persen dari compress yang kita mau
+
+        $path = isset($_GET['src']) ? $_GET['src'] : '';
+        $quality = isset($_GET['q']) ? intval($_GET['q']) : 70; // default 70%
+
+        // Pastikan path aman
+        $gambar = $_GET['src'];
+        $filepath = $_SERVER['DOCUMENT_ROOT'] . "/apotekinsani/public/" . $gambar;
+
+        if (!file_exists($filepath)) {
+            http_response_code(404);
+            exit("File not found.");
+        }
+
+        $ext = strtolower(pathinfo($filepath, PATHINFO_EXTENSION));
+
+        // Header dan kompresi sesuai jenis file
+        if ($ext === 'jpg' || $ext === 'jpeg') {
+            header("Content-Type: image/jpeg");
+            $image = imagecreatefromjpeg($filepath);
+            imagejpeg($image, null, $quality); // Kompres kualitas
+            imagedestroy($image);
+        } elseif ($ext === 'png') {
+            header("Content-Type: image/png");
+            $image = imagecreatefrompng($filepath);
+            // Kompres PNG: kualitas 0 (terbaik), 9 (terkompres)
+            $png_quality = (int) round(($quality / 100) * 9);
+            imagepng($image, null, $png_quality);
+            imagedestroy($image);
+        } else {
+            http_response_code(415);
+            exit("Unsupported image type.");
+        }
+    }
+
+    public function bukagambar()
+    { ?>
+        <img src="<?= base_url("api/tampilgambartercompress?src=images/product_picture/15_16_19_download_(18).jpg&q=60"); ?>" alt="Gambar Produk" class="img-fluid">
+        <?php }
+
+    public function ibatch()
+    {
         $where["product_id"] = $this->request->getGET("product_id");
         $input["product_batch"] = $this->request->getGET("product_batch");
         $this->db->table('product')->where($where)->update($input);
@@ -34,7 +162,7 @@ class api extends baseController
     }
 
     public function createstore()
-    {       
+    {
         //input store 
         $input["store_name"] = $this->request->getGET("store_name");
         $input["store_address"] = $this->request->getGET("store_address");
@@ -44,20 +172,20 @@ class api extends baseController
         $input["store_active"] = $this->request->getGET("store_active");
         $this->db->table('store')->insert($input);
         // echo $this->db->getLastQuery();
-        $userid=$this->db->insertID();
+        $userid = $this->db->insertID();
 
         //input position
         $inputposition1["store_id"] = $userid;
         $inputposition1["position_name"] = "Admin";
         $inputposition2["position_administrator"] = 2;
         $this->db->table('position')->insert($inputposition1);
-        $positionid1=$this->db->insertID();
+        $positionid1 = $this->db->insertID();
         //input position
         $inputposition2["store_id"] = $userid;
         $inputposition2["position_administrator"] = 1;
         $inputposition2["position_name"] = "Administrator";
         $this->db->table('position')->insert($inputposition2);
-        $positionid2=$this->db->insertID();
+        $positionid2 = $this->db->insertID();
 
         //input user
         $inputuser1["store_id"] = $userid;
@@ -75,7 +203,6 @@ class api extends baseController
         $inputuser2["position_id"] = $positionid2;
         $this->db->table('user')->insert($inputuser2);
         echo $this->db->getLastQuery();
-
     }
 
     public function iswritable()
@@ -136,20 +263,20 @@ class api extends baseController
         $val = json_decode($val);
         $position_id = $this->request->getGET("position_id");
         $pages_id = $this->request->getGET("pages_id");
-        $where["position_id"]=$this->request->getGET("position_id");
-        $where["pages_id"]=$this->request->getGET("pages_id");
-        $cek=$this->db->table('positionpages')->where($where)->get()->getNumRows();
-        if($cek>0){
+        $where["position_id"] = $this->request->getGET("position_id");
+        $where["pages_id"] = $this->request->getGET("pages_id");
+        $cek = $this->db->table('positionpages')->where($where)->get()->getNumRows();
+        if ($cek > 0) {
             $input1[$crud] = $val;
             $this->db->table('positionpages')->update($input1, $where);
             echo $this->db->getLastQuery();
-        }else{
+        } else {
             $input2["position_id"] = $position_id;
             $input2["pages_id"] = $pages_id;
             $input2[$crud] = $val;
             $this->db->table('positionpages')->insert($input2);
             echo $this->db->getLastQuery();
-        }        
+        }
     }
 
     public function cekcost_approver()
@@ -383,34 +510,36 @@ class api extends baseController
                 </tbody>
             </table>
         </div>
-<?php
+    <?php
     }
 
-    public function listprepaid_prepaidpayment(){
-        $prepaid_id=$this->request->getGET("prepaid_id");        
+    public function listprepaid_prepaidpayment()
+    {
+        $prepaid_id = $this->request->getGET("prepaid_id");
         $prepaid = $this->db->table("prepaid")
-        ->where("branch_id", $this->request->getGET("branch_id"))
-        ->get(); 
+            ->where("branch_id", $this->request->getGET("branch_id"))
+            ->get();
         // echo $this->db->getLastQuery();
-        ?>
-        <option value="0" <?= ($prepaid_id == "0") ? "selected" : ""; ?>>Select Prepaid</option>                                            
-       <?php
+    ?>
+        <option value="0" <?= ($prepaid_id == "0") ? "selected" : ""; ?>>Select Prepaid</option>
+        <?php
         foreach ($prepaid->getResult() as $prepaid) { ?>
             <option value="<?= $prepaid->prepaid_id; ?>" <?= ($prepaid_id == $prepaid->prepaid_id) ? "selected" : ""; ?>><?= $prepaid->prepaid_name; ?></option>
         <?php } ?>
     <?php }
 
-    public function listcash_prepaidpayment(){
-        $cash_id=$this->request->getGET("cash_id");        
+    public function listcash_prepaidpayment()
+    {
+        $cash_id = $this->request->getGET("cash_id");
         $cash = $this->db->table("cash")
-        ->where("branch_id", $this->request->getGET("branch_id"))
-        ->get(); 
+            ->where("branch_id", $this->request->getGET("branch_id"))
+            ->get();
         echo $this->db->getLastQuery();
-        ?>
-        <option value="0" <?= ($cash_id == "0") ? "selected" : ""; ?>>Select Cash</option>                                            
-       <?php
+    ?>
+        <option value="0" <?= ($cash_id == "0") ? "selected" : ""; ?>>Select Cash</option>
+        <?php
         foreach ($cash->getResult() as $cash) { ?>
             <option value="<?= $cash->cash_id; ?>" <?= ($cash_id == $cash->cash_id) ? "selected" : ""; ?>><?= $cash->cash_name; ?></option>
-        <?php } ?>        
-    <?php }
+        <?php } ?>
+<?php }
 }

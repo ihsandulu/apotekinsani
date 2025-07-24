@@ -102,10 +102,11 @@
                         <span class="focus-input100"></span>
                     </div> 
                     
-                    <div class="wrap-input100 validate-input" data-validate="Please enter your Store ID">
+                    <!-- <div class="wrap-input100 validate-input" data-validate="Please enter your Store ID">
                         <input class="input100" type="number" name="storeid" placeholder="Store ID">
                         <span class="focus-input100"></span>
-                    </div>
+                    </div> -->
+                    <input class="input100" type="hidden" name="storeid" placeholder="Store ID" value="1">
 
                     <!--
                     <div class="text-right p-t-13 p-b-23">
