@@ -72,7 +72,7 @@
 .f12, th,td{font-size: 10px;}
 </style>
 
-<div class='container-fluid'>
+
     <div class='row'>
         <div class='col-7'>
             <div class="card">
@@ -871,7 +871,7 @@
             </div>
         </div>
     </div>
-</div>
+
 <script>
     $('.select').select2();
     var title = "Poin of Sale";
