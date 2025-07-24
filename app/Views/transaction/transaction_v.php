@@ -137,7 +137,7 @@
                 <div class="row">
                     <div class="col-5"><a href="<?= base_url(); ?>" class=" btn btn-warning btn-xs fa fa-home"></a>
                         <button onclick="plistproduct('gambar','');" class="btn btn-info btn-xs fa fa-file-image-o"></button>
-                        &nbsp;&nbsp;<button onclick="plistproduct('list','');" class="btn btn-info btn-xs fa fa-list"></button>
+                        <button onclick="plistproduct('list','');" class="btn btn-info btn-xs fa fa-list"></button>
                     </div>
                     
                     <div class="col-7 mb-3">
