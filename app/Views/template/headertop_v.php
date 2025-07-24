@@ -4,17 +4,21 @@
         <div class="navbar-header">
             <a class="navbar-brand" href="<?= base_url(); ?>">
                 <!-- Logo icon -->
-                <b>                    
-                    <?php 
-                    $storepicture=session()->get("store_picture");
-                    $store_name=session()->get("store_name");
-                    if($storepicture!=""){$user_image="images/store_picture/".$storepicture;}else{$user_image="images/store_picture/no_image.png";}?>
-                    <img width="30" height="30" src="<?=base_url($user_image);?>" alt="homepage" class="dark-logo" />
-                    
+                <b>
+                    <?php
+                    $storepicture = session()->get("store_picture");
+                    $store_name = session()->get("store_name");
+                    if ($storepicture != "") {
+                        $user_image = "images/store_picture/" . $storepicture;
+                    } else {
+                        $user_image = "images/store_picture/no_image.png";
+                    } ?>
+                    <img width="30" height="30" src="<?= base_url($user_image); ?>" alt="homepage" class="dark-logo" />
+
                 </b>
                 <!--End Logo icon -->
                 <!-- Logo text -->
-                <span><?=($store_name!="")?$store_name:"POS";?></span>
+                <span><?= ($store_name != "") ? $store_name : "POS"; ?></span>
             </a>
         </div>
         <!-- End Logo -->
@@ -22,23 +26,41 @@
             <!-- toggle and nav items -->
             <ul class="navbar-nav mr-auto mt-md-0">
                 <!-- This is  -->
-                <li class="nav-item"> 
+                <li class="nav-item">
                     <a class="nav-link nav-toggler hidden-md-up text-muted" href="javascript:void(0);">
                         <i class="mdi mdi-menu" onclick="bukasidebar();"></i>
-                    </a> 
+                    </a>
                 </li>
-                <li class="nav-item m-l-10"> 
+                <li class="nav-item m-l-10">
                     <a class="nav-link sidebartoggler hidden-sm-down text-muted" onclick="bukasidebar();" href="javascript:void(0);">
                         <i class="ti-menu"></i>
-                    </a> 
+                    </a>
                 </li>
+                <input id="togglesidebar" type="hidden" value="0" />
                 <script>
-                    function bukasidebar(){
-                        setTimeout(() => {
-                            $(".mini-sidebar.fix-sidebar .left-sidebar").css({"position":"fixed","left":"0px","overflow":"auto"});
-                        }, 100);                        
+                    function bukasidebar() {
+                        let togglesidebar = $("#togglesidebar").val();
+                        if (togglesidebar == 0) {
+                            $("#togglesidebar").val("1");
+                            setTimeout(() => {
+                                $(".mini-sidebar.fix-sidebar .left-sidebar").css({
+                                    "position": "fixed",
+                                    "left": "0px",
+                                    "overflow": "auto"
+                                });
+                            }, 100);
+                        } else {
+                            $("#togglesidebar").val("0");
+                            setTimeout(() => {
+                                $(".mini-sidebar.fix-sidebar .left-sidebar").css({
+                                    "position": "fixed",
+                                    "left": "-250px",
+                                    "overflow": "hidden"
+                                });
+                            }, 100);
+                        }
                     }
-                    $(document).ready(function(){
+                    $(document).ready(function() {
                         // bukasidebar();
                     });
                 </script>
