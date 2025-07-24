@@ -134,6 +134,7 @@
         <div class="card">
             <div class="card-body">
                 <div class="row">
+                    <div class="col-1"><a href="<?=base_url();?>" class=" btn btn-warning fa fa-home"></a></div>
                     <div class="col-6 row">
                         <div class="col-6">
                             <button onclick="plistproduct('gambar','');" class="btn btn-info btn-block btn-xs">Gbr</button>
@@ -142,7 +143,7 @@
                             <button onclick="plistproduct('list','');" class="btn btn-info btn-block btn-xs">List</button>
                         </div>
                     </div>
-                    <div class="col-6">
+                    <div class="col-5">
                         <div class="input-group mb-3">
                             <input type="hidden" id="typesearch" value="gambar" />
                             <input onfocusin="$('#fokus').val('cari')" onkeyup="cariproduk();" id="cariproduk" type="text" class="" placeholder="Cari Produk" aria-label="Cari Produk" aria-describedby="basic-addon2">
