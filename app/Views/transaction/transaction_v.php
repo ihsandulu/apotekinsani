@@ -134,8 +134,8 @@
         <div class="card">
             <div class="card-body">
                 <div class="row">
-                    <div class="col-1"><a href="<?=base_url();?>" class=" btn btn-warning fa fa-home"></a></div>
-                    <div class="col-6 row">
+                    <div class="col-2"><a href="<?=base_url();?>" class=" btn btn-warning fa fa-home"></a></div>
+                    <div class="col-5 row">
                         <div class="col-6">
                             <button onclick="plistproduct('gambar','');" class="btn btn-info btn-block btn-xs">Gbr</button>
                         </div>
