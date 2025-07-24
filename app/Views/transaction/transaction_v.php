@@ -136,13 +136,13 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-1"><a href="<?=base_url();?>" class=" btn btn-warning btn-xs fa fa-home"></a></div>
-                    <div class="col-3 row">
+                    <div class="col-4 row">
                         <div class="col-12">
                             <button onclick="plistproduct('gambar','');" class="btn btn-info btn-xs fa fa-file-image-o"></button>
                             &nbsp;&nbsp;<button onclick="plistproduct('list','');" class="btn btn-info btn-xs fa fa-list"></button>
                         </div>
                     </div>
-                    <div class="col-8 mb-3">
+                    <div class="col-7 mb-3">
                          <input type="hidden" id="typesearch" value="gambar" />
                             <input onfocusin="$('#fokus').val('cari')" onkeyup="cariproduk();" id="cariproduk" type="text" class="" placeholder="Cari Produk" aria-label="Cari Produk" aria-describedby="basic-addon2" style="width: 100%;">
                     </div>
