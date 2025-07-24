@@ -173,7 +173,7 @@
                             <input onchange="listnota(-1)" type="date" id="from" name="from" class=" w-date" value="<?=$from;?>" style="width: 80px;font-size: 10px;">&nbsp;
                             <label for="to">Ke:</label>&nbsp;
                             <input onchange="listnota(-1)" type="date" id="to" name="to" class=" w-date" value="<?=$to;?>" style="width: 80px;font-size: 10px;">&nbsp;&nbsp;
-                            <button onclick="hariini()" type="button" class="btn btn-primary btn-xs">Today</button>
+                            <button data-toggle="tooltip" data-placement="top" title="Hari Ini" onclick="hariini()" type="button" class="btn btn-primary btn-xs fa fa-calendar"></button>
                         </form>
                         <div class="my-1" id="listnota" style="display: block;"></div>  
                         <div class="separator my-3"></div>                    
