@@ -1,5 +1,6 @@
 <?php echo $this->include("template/header_v"); ?>
 <style>
+    body{font-size: 12px !important;}
 .caption-1 figcaption {
   position: absolute;
   bottom: 0;
@@ -24,20 +25,20 @@
 .text-small{font-size: 8px;}
 .text-small0{font-size: 12px;}
 .text-small1 {
-  font-size: 14px;
+  font-size: 10px;
 }
 .text-small2 {
-  font-size: 15px;
+  font-size: 10px;
 }
 .img_product{
     width:100%; 
-    height:150px !important;    
+    height:70px !important;    
   border:rgba(155, 155, 155, 0.5) solid 1px;
   border-radius:4px;
 }
 .divimg_product{margin-bottom:10px; }
 .pointer{cursor: pointer;}
-.figcaption{background-color: rgba(0, 0, 0, 0.8); border-radius:2px; padding:5px; }
+.figcaption{background-color: rgba(0, 0, 0, 0.5); border-radius:2px; padding:1px; }
 #listproduct{overflow-y: scroll;}
 #listproduct::-webkit-scrollbar {
   display: none;
@@ -67,6 +68,8 @@
     top:5px;
 }
 .disabled{opacity: 0.1;}
+.btn{font-size: 12px;}
+
 </style>
 
 <div class='container-fluid'>
@@ -167,9 +170,9 @@
                         ?>
                         <form class="form-inline" >
                             <label for="from">Dari:</label>&nbsp;
-                            <input onchange="listnota(-1)" type="date" id="from" name="from" class="form-control" value="<?=$from;?>">&nbsp;
+                            <input onchange="listnota(-1)" type="date" id="from" name="from" class="form-control w-date" value="<?=$from;?>" style="width: 130px;">&nbsp;
                             <label for="to">Ke:</label>&nbsp;
-                            <input onchange="listnota(-1)" type="date" id="to" name="to" class="form-control" value="<?=$to;?>">&nbsp;
+                            <input onchange="listnota(-1)" type="date" id="to" name="to" class="form-control w-date" value="<?=$to;?>" style="width: 130px;">&nbsp;&nbsp;
                             <button onclick="hariini()" type="button" class="btn btn-primary">Hari Ini</button>
                         </form>
                         
