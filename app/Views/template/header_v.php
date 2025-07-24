@@ -35,7 +35,7 @@ if ($this->session->get('user_id') == "") {
     <!--[if lt IE 9]>
     <script src="https:**oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https:**oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]--> 
+    <![endif]-->
 
 
     <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">-->
@@ -59,7 +59,11 @@ if ($this->session->get('user_id') == "") {
     <script src="js/pemisah_ribuan.js"></script>
 
     <script src="tinymce/js/tinymce/tinymce.min.js" referrerpolicy="origin"></script>
-    <script>tinymce.init({selector:'textarea'});</script>
+    <script>
+        tinymce.init({
+            selector: 'textarea'
+        });
+    </script>
 
     <style>
         .toast {
@@ -108,24 +112,30 @@ if ($this->session->get('user_id') == "") {
         .green {
             color: olive;
         }
-        .hidebar{
-            height:inherit;
+
+        .hidebar {
+            height: inherit;
             overflow: auto;
         }
 
-       /* Hide scrollbar for Chrome, Safari and Opera */
+        /* Hide scrollbar for Chrome, Safari and Opera */
         .hidebar::-webkit-scrollbar {
             display: none;
         }
 
         /* Hide scrollbar for IE, Edge and Firefox */
         .hidebar {
-            -ms-overflow-style: none;  /* IE and Edge */
-            scrollbar-width: none;  /* Firefox */
+            -ms-overflow-style: none;
+            /* IE and Edge */
+            scrollbar-width: none;
+            /* Firefox */
         }
-        .hide{display: none !important;}
+
+        .hide {
+            display: none !important;
+        }
     </style>
-    
+
 
 </head>
 
@@ -138,17 +148,22 @@ if ($this->session->get('user_id') == "") {
     </div>
     <!-- Main wrapper  -->
     <div id="main-wrapper">
+        <?php
+        $uri_string = uri_string(); 
+        $pagewrapper = "";
+        if ($uri_string !== 'transaction') { 
+            $pagewrapper="page-wrapper";
+            ?>
+            <!-- header header  -->
+            <?= $this->include('template/headertop_v'); ?>
+            <!-- End header header -->
 
-        <!-- header header  -->
-        <?= $this->include('template/headertop_v'); ?>
-        <!-- End header header -->
-
-        <!-- Left Sidebar  -->
-        <?= $this->include('template/headerside_v'); ?>
-        <!-- End Left Sidebar  -->
-
+            <!-- Left Sidebar  -->
+            <?= $this->include('template/headerside_v'); ?>
+            <!-- End Left Sidebar  -->
+        <?php } ?>
         <!-- Page wrapper  -->
-        <div class="page-wrapper">
+        <div class="<?=$pagewrapper;?>">
             <!-- Bread crumb -->
             <div class="row page-titles">
                 <div class="col-md-5 align-self-center">
