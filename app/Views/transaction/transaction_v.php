@@ -168,7 +168,7 @@
                         }
 
                         ?>
-                        <form class="form-inline col-12 " >
+                        <form class="form col-12 " >
                             <label for="from">Dari:</label>&nbsp;
                             <input onchange="listnota(-1)" type="date" id="from" name="from" class=" w-date" value="<?=$from;?>" style="width: 80px;font-size: 10px;">&nbsp;
                             <label for="to">Ke:</label>&nbsp;
