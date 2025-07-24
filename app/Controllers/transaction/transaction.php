@@ -753,11 +753,11 @@ class transaction extends baseController
                     <!-- <table id="dataTable" class="table table-condensed table-hover w-auto dtable"> -->
                     <thead class="">
                         <tr>
-                            <th></th>
+                            <!-- <th></th> -->
                             <th>No.</th>
-                            <th>Batch</th>
+                            <!-- <th>Batch</th> -->
                             <th>Produk</th>
-                            <th>Qty</th>
+                            <!-- <th>Qty</th> -->
                             <th>Harga</th>
                         </tr>
                     </thead>
@@ -779,8 +779,8 @@ class transaction extends baseController
                         foreach ($usr->getResult() as $usr) {
                         ?>
                             <tr class="">
-                                <?php if (!isset($_GET["report"])) { ?>
-                                    <td style="padding-left:0px; padding-right:0px;">
+                                <td style="padding-left:0px; padding-right:0px;">
+                                    <?php if (!isset($_GET["report"])) { ?>
                                         <?php
                                         if (
                                             (
@@ -797,17 +797,17 @@ class transaction extends baseController
                                         ) { ?>
                                             <button class="btn btn-xs btn-danger delete m-2" onclick="deletetransactiond(<?= $usr->transaction_id; ?>,<?= $usr->product_id; ?>,<?= $usr->qty; ?>);" name="delete" value="OK"><span class="fa fa-close" style="color:white;"></span> </button>
                                         <?php } ?>
-                                    </td>
-                                <?php } ?>
-                                <td class="text-small0"><?= $no++; ?></td>
-                                <td class="text-small0"><?= $usr->product_batch; ?></td>
-                                <td class="text-small0"><?= $usr->product_name; ?></td>
-                                <?php
-                                $qty = $usr->qty;
-                                $price = $usr->price;
-                                $tprice += $price;
-                                ?>
-                                <td class="text-small0">
+
+                                        <?php } ?>&nbsp;&nbsp;<?= $no++; ?>
+                                </td>
+                                <!-- <td class="text-small0"><?= $usr->product_batch; ?></td> -->
+                                <td class="text-small0"><?= $usr->product_name; ?><br />
+                                    <?php
+                                    $qty = $usr->qty;
+                                    $price = $usr->price;
+                                    $tprice += $price;
+                                    ?>
+
                                     <?php
                                     if (
                                         (
@@ -872,28 +872,28 @@ class transaction extends baseController
                         $dtprice = $tprice - $tdiskon;
                         ?>
                         <tr>
-                            <th colspan="5">Total</th>
+                            <th colspan="2">Total</th>
                             <th>
                                 <?= number_format($tprice, 0, ",", "."); ?>
                                 <input type="hidden" id="dtagihan" value="<?= $tprice; ?>" />
                             </th>
                         </tr>
                         <tr>
-                            <th colspan="5">Discount</th>
+                            <th colspan="2">Discount</th>
                             <th>
                                 <?= number_format($tdiskon, 0, ",", "."); ?>
                                 <input type="hidden" id="diskon" value="<?= $tdiskon; ?>" />
                             </th>
                         </tr>
                         <tr>
-                            <th colspan="5">Total Tagihan</th>
+                            <th colspan="2">Total Tagihan</th>
                             <th>
                                 <?= number_format($dtprice, 0, ",", "."); ?>
                                 <input type="hidden" id="tagihan" value="<?= $dtprice; ?>" />
                             </th>
                         </tr>
                         <tr>
-                            <th colspan="5">
+                            <th colspan="2">
                                 <?php
                                 if (
                                     (
@@ -917,7 +917,7 @@ class transaction extends baseController
                             <th class="dibayar"><?= $transaction->transaction_pay; ?></th>
                         </tr>
                         <tr>
-                            <th colspan="5">
+                            <th colspan="2">
                                 Kembalian
                                 <input type="hidden" id="kembaliannya" value="<?= $transaction->transaction_change; ?>" />
                                 <input type="hidden" id="status" value="<?= $transaction->transaction_status; ?>" />
