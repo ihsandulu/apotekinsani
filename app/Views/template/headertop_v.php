@@ -39,7 +39,7 @@
                         }, 100);                        
                     }
                     $(document).ready(function(){
-                        bukasidebar();
+                        // bukasidebar();
                     });
                 </script>
                 <!-- 

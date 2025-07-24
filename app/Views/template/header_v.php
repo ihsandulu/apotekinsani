@@ -115,7 +115,7 @@ if ($this->session->get('user_id') == "") {
 
         .hidebar {
             height: inherit;
-            overflow: auto;
+            overflow: scroll;
         }
 
         /* Hide scrollbar for Chrome, Safari and Opera */
