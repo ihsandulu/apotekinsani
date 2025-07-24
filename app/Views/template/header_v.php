@@ -136,6 +136,77 @@ if ($this->session->get('user_id') == "") {
         .hide {
             display: none !important;
         }
+
+        /* SIDEBAR */
+        #sidebar {
+            height: 100vh;
+            width: 250px;
+            background-color: #1e293b;
+            color: white;
+            position: fixed;
+            top: 0;
+            left: -250px;
+            transition: left 0.3s ease;
+            padding-top: 60px;
+            z-index: 1000;
+        }
+
+        #sidebar.active {
+            left: 0;
+        }
+
+        #sidebar ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        #sidebar ul li {
+            padding: 15px 20px;
+            border-bottom: 1px solid #334155;
+        }
+
+        #sidebar ul li:hover {
+            background-color: #334155;
+            cursor: pointer;
+        }
+
+        /* TOGGLE BUTTON */
+        #toggleBtn {
+            position: fixed;
+            top: 15px;
+            left: 15px;
+            font-size: 24px;
+            background-color: #1e293b;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 4px;
+            z-index: 1100;
+            cursor: pointer;
+        }
+
+        /* KONTEN UTAMA */
+        #main {
+            flex: 1;
+            margin-left: 0;
+            padding: 20px;
+            transition: margin-left 0.3s ease;
+            width: 100%;
+        }
+
+        @media (min-width: 768px) {
+            #sidebar {
+                left: 0;
+            }
+
+            #toggleBtn {
+                display: none;
+            }
+
+            #main {
+                margin-left: 250px;
+            }
+        }
     </style>
 
 
@@ -151,11 +222,11 @@ if ($this->session->get('user_id') == "") {
     <!-- Main wrapper  -->
     <div id="main-wrapper">
         <?php
-        $uri_string = uri_string(); 
+        $uri_string = uri_string();
         $pagewrapper = "";
-        if ($uri_string !== 'transaction') { 
-            $pagewrapper="page-wrapper";
-            ?>
+        if ($uri_string !== 'transaction') {
+            $pagewrapper = "page-wrapper";
+        ?>
             <!-- header header  -->
             <?= $this->include('template/headertop_v'); ?>
             <!-- End header header -->
@@ -165,7 +236,7 @@ if ($this->session->get('user_id') == "") {
             <!-- End Left Sidebar  -->
         <?php } ?>
         <!-- Page wrapper  -->
-        <div class="<?=$pagewrapper;?>">
+        <div class="<?= $pagewrapper; ?>">
             <!-- Bread crumb -->
             <div class="row page-titles">
                 <div class="col-md-5 align-self-center">
