@@ -69,7 +69,6 @@
 }
 .disabled{opacity: 0.1;}
 .btn{font-size: 12px;}
-
 </style>
 
 <div class='container-fluid'>
@@ -80,10 +79,10 @@
                     <div class="row"> 
                         <div class="col-6 row">                       
                             <div class="col-6">
-                                <button onclick="plistproduct('gambar','');" class="btn btn-info btn-block">Bergambar</button>
+                                <button onclick="plistproduct('gambar','');" class="btn btn-info btn-block">Gambar</button>
                             </div>                               
                             <div class="col-6">
-                                <button onclick="plistproduct('list','');" class="btn btn-info btn-block">List Data</button>
+                                <button onclick="plistproduct('list','');" class="btn btn-info btn-block">List</button>
                             </div>                        
                         </div>                       
                         <div class="col-6">
@@ -170,9 +169,9 @@
                         ?>
                         <form class="form-inline" >
                             <label for="from">Dari:</label>&nbsp;
-                            <input onchange="listnota(-1)" type="date" id="from" name="from" class="form-control w-date" value="<?=$from;?>" style="width: 130px;">&nbsp;
+                            <input onchange="listnota(-1)" type="date" id="from" name="from" class="form-control w-date" value="<?=$from;?>" style="width: 80px;font-size: 10px;">&nbsp;
                             <label for="to">Ke:</label>&nbsp;
-                            <input onchange="listnota(-1)" type="date" id="to" name="to" class="form-control w-date" value="<?=$to;?>" style="width: 130px;">&nbsp;&nbsp;
+                            <input onchange="listnota(-1)" type="date" id="to" name="to" class="form-control w-date" value="<?=$to;?>" style="width: 80px;font-size: 10px;">&nbsp;&nbsp;
                             <button onclick="hariini()" type="button" class="btn btn-primary">Hari Ini</button>
                         </form>
                         
