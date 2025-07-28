@@ -48,6 +48,10 @@ class mpositionm_m extends core_m
 
         //insert
         if ($this->request->getPost("create") == "OK") {
+            //kosongkan fiekd default
+             $inputq["positionm_default"] = 0;
+            $this->db->table('positionm')->update($inputq, array("store_id" => session()->get("store_id")));
+            
             foreach ($this->request->getPost() as $e => $f) {
                 if ($e != 'create' && $e != 'positionm_id') {
                     $input[$e] = $this->request->getPost($e);
@@ -67,6 +71,10 @@ class mpositionm_m extends core_m
         
         //update
         if ($this->request->getPost("change") == "OK") {
+            //kosongkan fiekd default
+             $inputq["positionm_default"] = 0;
+            $this->db->table('positionm')->update($inputq, array("store_id" => session()->get("store_id")));
+
             foreach ($this->request->getPost() as $e => $f) {
                 if ($e != 'change' && $e != 'positionm_picture') {
                     $input[$e] = $this->request->getPost($e);

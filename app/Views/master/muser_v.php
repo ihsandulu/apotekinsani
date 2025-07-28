@@ -51,7 +51,7 @@
                             <form class="form-horizontal" method="post" enctype="multipart/form-data">
 
                                 <div class="form-group">
-                                    <label class="control-label col-sm-2" for="position_id">Jabatan:</label>
+                                    <label class="control-label col-sm-12" for="position_id">Jabatan:</label>
                                     <div class="col-sm-10">
                                         <?php
                                         $position = $this->db->table("position")
@@ -74,7 +74,7 @@
 
                                
                                 <div class="form-group">
-                                    <label class="control-label col-sm-2" for="user_name">Username:</label>
+                                    <label class="control-label col-sm-12" for="user_name">Username:</label>
                                     <div class="col-sm-10">
                                         <input required type="text" autofocus class="form-control" id="user_name" name="user_name" placeholder="" value="<?= $user_name; ?>">
 
@@ -84,14 +84,14 @@
 
                                
                                 <div class="form-group">
-                                    <label class="control-label col-sm-2" for="user_password">Password:</label>
+                                    <label class="control-label col-sm-12" for="user_password">Password:</label>
                                     <div class="col-sm-10">
                                         <input type="text" autofocus class="form-control" id="user_password" name="user_password" placeholder="<?=$ketpassword;?>" value="">
                                     </div>
                                 </div>
 
                                 <div class="form-group">
-                                    <label class="control-label col-sm-2" for="user_email">Email:</label>
+                                    <label class="control-label col-sm-12" for="user_email">Email:</label>
                                     <div class="col-sm-10">
                                         <input required type="email" autofocus class="form-control" id="user_email" name="user_email" placeholder="" value="<?= $user_email; ?>">
 
@@ -99,14 +99,14 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label class="control-label col-sm-2" for="user_wa">Whatsapp:</label>
+                                    <label class="control-label col-sm-12" for="user_wa">Whatsapp:</label>
                                     <div class="col-sm-10">
                                         <input type="text" autofocus class="form-control" id="user_wa" name="user_wa" placeholder="" value="<?= $user_wa; ?>">
                                     </div>
                                 </div>
 
                                 <div class="form-group">
-                                    <label class="control-label col-sm-2" for="user_npwp">NPWP:</label>
+                                    <label class="control-label col-sm-12" for="user_npwp">NPWP:</label>
                                     <div class="col-sm-10">
                                         <input type="text" autofocus class="form-control" id="user_npwp" name="user_npwp" placeholder="" value="<?= $user_npwp; ?>">
 
@@ -114,7 +114,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label class="control-label col-sm-2" for="user_address">Alamat:</label>
+                                    <label class="control-label col-sm-12" for="user_address">Alamat:</label>
                                     <div class="col-sm-10">
                                         <input type="text" autofocus class="form-control" id="user_address" name="user_address" placeholder="" value="<?= $user_address; ?>">
 

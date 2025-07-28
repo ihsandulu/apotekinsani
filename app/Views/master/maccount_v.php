@@ -26,7 +26,7 @@
                                 </form>
                             <?php } ?>
                             <?php 
-                            if(session()->get("store_akun")==1){
+                            
                             if (
                                 (
                                     isset(session()->get("position_administrator")[0][0]) 
@@ -47,7 +47,7 @@
                                 </h1>
                             </form>
                             <?php } ?>
-                        <?php }} ?>
+                        <?php } ?>
                     </div>
 
                     <?php if (isset($_POST['new']) || isset($_POST['edit'])) { ?>
@@ -132,7 +132,7 @@
                                         <tr>
                                             <?php if (!isset($_GET["report"])) { ?>
                                                 <td style="padding-left:0px; padding-right:0px;">
-                                                <?php  if(session()->get("store_akun")==1){?>
+                                               
                                                     <?php 
                                                     if (
                                                         (
@@ -172,7 +172,7 @@
                                                         <input type="hidden" name="account_id" value="<?= $usr->account_id; ?>" />
                                                     </form>
                                                     <?php }?>
-                                                <?php }?>
+                                               
                                                 </td>
                                             <?php } ?>
                                             <td><?= $usr->account_type; ?></td>

@@ -247,7 +247,10 @@
                                     <div class="form-group">
                                         <label for="account_id">Tipe Pembayaran:</label>
                                         <select readonly id="account_id" class="form-control">
-                                            <?php $account = $this->db->table("account")->orderBy("account_id")->get();
+                                            <?php $account = $this->db->table("account")
+                                            ->where("account_type","Debet")
+                                            ->orderBy("account_sort","ASC")
+                                            ->get();
                                             foreach ($account->getResult() as $account) {
                                                 if ($account->account_id == 2) {
                                                     $selected = "selected";

@@ -43,56 +43,56 @@
                             <form class="form-horizontal" method="post" enctype="multipart/form-data">
 
                                 <div class="form-group">
-                                    <label class="control-label col-sm-2" for="store_name">Toko:</label>
+                                    <label class="control-label col-sm-12" for="store_name">Toko:</label>
                                     <div class="col-sm-10">
                                         <input required type="text" autofocus class="form-control" id="store_name" name="store_name" placeholder="" value="<?= $store_name; ?>">
                                     </div>
                                 </div>
 
                                 <div class="form-group">
-                                    <label class="control-label col-sm-2" for="store_address">Alamat:</label>
+                                    <label class="control-label col-sm-12" for="store_address">Alamat:</label>
                                     <div class="col-sm-10">
                                         <input type="text" autofocus class="form-control" id="store_address" name="store_address" placeholder="" value="<?= $store_address; ?>">
                                     </div>
                                 </div>
 
                                 <div class="form-group">
-                                    <label class="control-label col-sm-2" for="store_owner">Owner:</label>
+                                    <label class="control-label col-sm-12" for="store_owner">Owner:</label>
                                     <div class="col-sm-10">
                                         <input type="text" autofocus class="form-control" id="store_owner" name="store_owner" placeholder="" value="<?= $store_owner; ?>">
                                     </div>
                                 </div>
 
                                 <div class="form-group">
-                                    <label class="control-label col-sm-2" for="store_phone">Phone:</label>
+                                    <label class="control-label col-sm-12" for="store_phone">Phone:</label>
                                     <div class="col-sm-10">
                                         <input type="text" autofocus class="form-control" id="store_phone" name="store_phone" placeholder="" value="<?= $store_phone; ?>">
                                     </div>
                                 </div>
 
                                 <div class="form-group">
-                                    <label class="control-label col-sm-2" for="store_wa">Whatsapp:</label>
+                                    <label class="control-label col-sm-12" for="store_wa">Whatsapp:</label>
                                     <div class="col-sm-10">
                                         <input type="text" autofocus class="form-control" id="store_wa" name="store_wa" placeholder="" value="<?= $store_wa; ?>">
                                     </div>
                                 </div>
 
                                 <div class="form-group">
-                                    <label class="control-label col-sm-2" for="store_web">Web:</label>
+                                    <label class="control-label col-sm-12" for="store_web">Web:</label>
                                     <div class="col-sm-10">
                                         <input type="text" autofocus class="form-control" id="store_web" name="store_web" placeholder="" value="<?= $store_web; ?>">
                                     </div>
                                 </div>
 
                                 <div class="form-group">
-                                    <label class="control-label col-sm-2" for="store_noteinvoice">Catatan Nota Penjualan:</label>
+                                    <label class="control-label col-sm-12" for="store_noteinvoice">Catatan Nota Penjualan:</label>
                                     <div class="col-sm-10">
                                         <textarea class="form-control" id="store_noteinvoice" name="store_noteinvoice" placeholder="Mis:Barang tidak dapat ditukar."><?= $store_noteinvoice; ?></textarea>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
-                                    <label class="control-label col-sm-2" for="store_picture">Logo:</label>
+                                    <label class="control-label col-sm-12" for="store_picture">Logo:</label>
                                     <div class="col-sm-10">
                                         <input type="file" autofocus class="form-control" id="store_picture" name="store_picture" placeholder="" value="<?= $store_picture; ?>">
                                         <?php if($store_picture!=""){$user_image="images/store_picture/".$store_picture;}else{$user_image="images/store_picture/no_image.png";}?>
@@ -168,8 +168,8 @@
                                                             )
                                                         ) ||
                                                         (
-                                                            isset(session()->get("halaman")['6']['act_update']) 
-                                                            && session()->get("halaman")['6']['act_update'] == "1"
+                                                            isset(session()->get("halaman")['28']['act_update']) 
+                                                            && session()->get("halaman")['28']['act_update'] == "1"
                                                         )
                                                     ) { ?>
                                                     <form method="post" class="btn-action" style="">

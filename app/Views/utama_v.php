@@ -16,17 +16,14 @@
 								</header>
 								<h3><?= session()->get("position_name"); ?></h3>
 								<div class="desc">
-									<?= session()->get("store_name"); ?>
+									<?= session()->get("user_name"); ?>
 								</div>
-								<!-- <div class="contacts"><?= session()->get("position_name"); ?>
-									<div class="clear"></div>
-								</div> -->
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-			<?php print_r(session()->get("position_administrator"));?>asdf
+		
 			<div class="row">
 				<?php
 				$from = date("Y-m-01");

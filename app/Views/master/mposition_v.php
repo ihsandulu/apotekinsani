@@ -64,7 +64,7 @@
                             <form class="form-horizontal" method="post" enctype="multipart/form-data">
 
                                 <div class="form-group">
-                                    <label class="control-label col-sm-2" for="position_name">Posisi:</label>
+                                    <label class="control-label col-sm-12" for="position_name">Posisi:</label>
                                     <div class="col-sm-10">
                                         <input required type="text" autofocus class="form-control" id="position_name" name="position_name" placeholder="" value="<?= $position_name; ?>">
 
