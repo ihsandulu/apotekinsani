@@ -365,7 +365,7 @@
                 </li>
                 <?php }?>
 
-                <?php 
+                <!-- <?php 
                 if (
                     (
                         isset(session()->get("position_administrator")[0][0]) 
@@ -382,7 +382,7 @@
                 <li> 
                     <a class="  " href="<?= base_url("payment"); ?>" aria-expanded="false"><i class="fa fa-money"></i><span class="hide-menu">Pembayaran</span></a>
                 </li>
-                <?php }?>
+                <?php }?> -->
 
                 <?php 
                 if (

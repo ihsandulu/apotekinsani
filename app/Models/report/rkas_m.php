@@ -35,6 +35,7 @@ class rkas_m extends core_m
             foreach ($this->db->getFieldNames('kas') as $field) {
                 $data[$field] = "";
             }
+            $data["kas_date"]=date("Y-m-d");
         }
 
         
@@ -42,18 +43,10 @@ class rkas_m extends core_m
         //delete
         if ($this->request->getPost("delete") == "OK") {  
             $kas_id=   $this->request->getPost("kas_id");
-            $cek=$this->db->table("product")
-            ->where("kas_id", $kas_id) 
-            ->get()
-            ->getNumRows();
-            if($cek>0){
-                $data["message"] = "kas masih dipakai di data product!";
-            } else{            
-                $this->db
+            $this->db
                 ->table("kas")
                 ->delete(array("kas_id" => $this->request->getPost("kas_id"),"store_id" =>session()->get("store_id")));
                 $data["message"] = "Delete Success";
-            }
         }
 
         //insert
@@ -64,6 +57,8 @@ class rkas_m extends core_m
                 }
             }
             $input["store_id"] = session()->get("store_id");
+            if( $input["kas_type"]=="masuk"){$input["account_id"]="13";}
+            if( $input["kas_type"]=="keluar"){$input["account_id"]="18";}
 
             $builder = $this->db->table('kas');
             $builder->insert($input);
@@ -82,6 +77,8 @@ class rkas_m extends core_m
                     $input[$e] = $this->request->getPost($e);
                 }
             }
+            if( $input["kas_type"]=="masuk"){$input["account_id"]="13";}
+            if( $input["kas_type"]=="keluar"){$input["account_id"]="18";}
             $input["store_id"] = session()->get("store_id");
             $this->db->table('kas')->update($input, array("kas_id" => $this->request->getPost("kas_id")));
             $data["message"] = "Update Success";

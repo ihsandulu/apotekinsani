@@ -166,6 +166,7 @@ class payment_m extends core_m
             foreach ($this->db->getFieldNames('payment') as $field) {
                 $data[$field] = "";
             }
+            $data["supplier_id"]=$_GET["supplier_id"];
         }
 
         //total payment
