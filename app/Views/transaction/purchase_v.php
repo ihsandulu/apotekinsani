@@ -1,5 +1,5 @@
 <?php echo $this->include("template/header_v"); ?>
-
+<style> th,td,tr{border: rgba(0, 0, 0, 0.2) solid 1px;}</style>
 <div class='container-fluid'>
     <div class='row'>
         <div class='col-12'>
@@ -66,6 +66,18 @@
                                     <label class="control-label col-sm-2" for="purchase_date">Tgl Pembelian:</label>
                                     <div class="col-sm-10">
                                         <input required type="date" autofocus class="form-control" id="purchase_date" name="purchase_date" placeholder="" value="<?= $purchase_date; ?>">
+                                    </div>
+                                </div>   
+                                <div class="form-group">
+                                    <label class="control-label col-sm-2" for="purchase_indate">Tgl Datang:</label>
+                                    <div class="col-sm-10">
+                                        <input required type="date" autofocus class="form-control" id="purchase_indate" name="purchase_indate" placeholder="" value="<?= $purchase_indate; ?>">
+                                    </div>
+                                </div>   
+                                <div class="form-group">
+                                    <label class="control-label col-sm-2" for="purchase_duedate">Jatuh Tempo:</label>
+                                    <div class="col-sm-10">
+                                        <input required type="date" autofocus class="form-control" id="purchase_duedate" name="purchase_duedate" placeholder="" value="<?= $purchase_duedate; ?>">
                                     </div>
                                 </div>    
                                 <div class="form-group">
@@ -145,7 +157,7 @@
                         <?php } ?>
 
                         <div class="table-responsive m-t-40">
-                            <table id="example23" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
+                            <table id="example23" class="display nowrap " cellspacing="0" width="100%" border="1">
                                 <!-- <table id="dataTable" class="table table-condensed table-hover w-auto dtable"> -->
                                 <thead class="">
                                     <tr>
@@ -213,8 +225,9 @@
                                             $bayar=$payment->bayar;
                                         }
                                         $sisa=$hargasetelahppn-$bayar;
+                                        if($sisa==0){$bg="background-color: greenyellow;";}else{$bg="bg-color:white;";}
                                         ?>
-                                        <tr>    
+                                        <tr style="<?=$bg;?>">    
                                             <td style="padding-left:0px; padding-right:0px;">                                                    
                                                 <?php 
                                                 if (
@@ -232,7 +245,7 @@
                                                 ) { ?>
                                                 
                                                 <?php if (isset($_GET["report"])) {$report="&report=OK";}else{$report="";} ?>
-                                                <a href="<?=base_url("purchased?supplier_id=".$usr->supplier_id."&purchase_id=".$usr->purchase_id."&purchase_no=".$usr->purchase_no."&purchase_ppn=".$usr->purchase_ppn.$report);?>" class="btn btn-xs btn-info"><span class="fa fa-cubes"></span></a>
+                                                <a href="<?=base_url("purchased?supplier_id=".$usr->supplier_id."&supplier_name=".$usr->supplier_name."&purchase_id=".$usr->purchase_id."&purchase_no=".$usr->purchase_no."&purchase_ppn=".$usr->purchase_ppn.$report);?>" class="btn btn-xs btn-info"><span class="fa fa-cubes"></span></a>
                                                 <?php }?>
                                                 
                                                 <?php if (!isset($_GET["report"])) { ?>
@@ -299,7 +312,13 @@
                                                 <?php } ?>
                                             </td>
                                             <td><?= $no++; ?></td>                                                  
-                                            <td><?= $usr->purchase_date; ?></td>
+                                            <td>
+                                                <small>
+                                                P: <?= $usr->purchase_date; ?><br/>
+                                                I: <?= $usr->purchase_indate; ?><br/>
+                                                D: <?= $usr->purchase_duedate; ?>
+                                                </small>
+                                            </td>
                                             <td><?= $usr->store_name; ?></td>
                                             <td><?= $usr->supplier_name; ?></td>
                                             <td><?= $usr->purchase_no; ?></td>
@@ -310,7 +329,7 @@
                                                 ->join("product","product.product_id=purchased.product_id","left")
                                                 ->where("purchase_id",$usr->purchase_id)
                                                 ->get();
-                                                $bayar=0;
+                                               
                                                 foreach ($purchased->getResult() as $purchased) {
                                                     echo $purchased->product_name." (".$purchased->purchased_qty."), ";
                                                 }
@@ -319,11 +338,11 @@
                                             <td><?= number_format(floatval($usr->nominal),0,".",",");$tnominal+=$usr->nominal; ?></td>
                                             <td><?= $usr->purchase_ppn; ?> %</td>
                                             <td>
-                                                <?= number_format(floatval($hargasetelahppn),0,".",",");$thargasetelahppn+=$hargasetelahppn; ?>
+                                                T: <?= number_format(floatval($hargasetelahppn),0,".",",");$thargasetelahppn+=$hargasetelahppn; ?>
                                                 <?php if($bayar>0){?>
                                                 <a href="<?=base_url("payment?purchase_id=".$usr->purchase_id."&purchase_no=".$usr->purchase_no."&kas_nominal=".$hargasetelahppn."&supplier_id=".$usr->supplier_id."&url=".$fullURL);?>">
-                                                <br/><small>(Bayar:<?=number_format($bayar,0,".",","); ?>)</small> 
-                                                <br/><small>(Sisa:<?=number_format($sisa,0,".",","); ?>)</small> 
+                                                <br/><small>(P: <?=number_format($bayar,0,".",","); ?>)</small> 
+                                                <br/><small>(S: <?=number_format($sisa,0,".",","); ?>)</small> 
                                                 </a> 
                                                 <?php }?>
                                             </td>

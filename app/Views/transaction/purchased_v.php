@@ -319,7 +319,7 @@
 </div>
 <script>
     $('.select').select2();
-    var title = "Laporan Detil Pembelian <?= $this->request->getGET("purchase_no"); ?>";
+    var title = "Laporan Detil Pembelian <?= $this->request->getGET("purchase_no"); ?> (<?= $this->request->getGET("supplier_name"); ?>)";
     $("title").text(title);
     $(".card-title").text(title);
     $("#page-title").text(title);

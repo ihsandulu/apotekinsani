@@ -175,7 +175,9 @@
                                         <th>Produk</th>
                                         <th>No. Pembelian</th>
                                         <th>Qty</th>
-                                        <th>Nominal</th>                                        
+                                        <th>Nominal</th>  
+                                        <th>Diskon</th>  
+                                        <th>Total</th>                                        
                                         <?php if($this->request->getGET("purchase_ppn")==0){?>  
                                         <th>PPN</th>
                                         <th>Tagihan(setelah PPN)</th>
@@ -187,6 +189,7 @@
                                     $builder = $this->db
                                         ->table("purchased")
                                         ->join("purchase", "purchase.purchase_id=purchased.purchase_id", "left")
+                                        ->join("supplier", "supplier.supplier_id=purchase.supplier_id", "left")
                                         ->join("store", "store.store_id=purchased.store_id", "left")
                                         ->join("product", "product.product_id=purchased.product_id", "left")
                                         ->where("purchased.store_id",session()->get("store_id"));
@@ -213,8 +216,13 @@
                                             <td><?= $usr->purchased_outdate; ?></td>
                                             <td><?= $usr->purchased_batch; ?></td>
                                             <td class="text-left"><?= $usr->product_name; ?></td>
-                                            <td><?= $usr->purchase_no; ?></td>
+                                            <td>
+                                                <?= $usr->purchase_no; ?><br/>
+                                                <?= $usr->supplier_name; ?>
+                                            </td>
                                             <td class="text-right"><?= number_format($usr->purchased_qty,0,".",","); ?></td>
+                                            <td class="text-right"><?= number_format($usr->purchased_sprice,0,".",","); ?></td>
+                                            <td class="text-right"><?= number_format($usr->purchased_discount,0,".",","); ?> %</td>
                                             <td class="text-right"><?= number_format($usr->purchased_price,0,".",","); ?></td>
                                             <?php if($this->request->getGET("purchase_ppn")==0){?>  
                                             <td><?= $usr->purchased_ppn; ?> %</td>
