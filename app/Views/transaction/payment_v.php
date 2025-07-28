@@ -1,5 +1,7 @@
 <?php echo $this->include("template/header_v"); ?>
-
+<?php 
+$tnominal=0;
+?>
 <div class='container-fluid'>
     <div class='row'>
         <div class='col-12'>
@@ -269,7 +271,7 @@
 </div>
 <script>
     $('.select').select2();
-    <?php if(isset($_GET["purchase_no"])){$purchase_no=$_GET["purchase_no"]." | Tagihan : ".number_format($_GET["kas_nominal"],0,".",",")." | Sisa : ".number_format($_GET["kas_nominal"]-$tnominal,0,".",",");}else{$purchase_no="";}?>
+    <?php if(isset($_GET["purchase_no"])){$purchase_no=$_GET["purchase_no"]." | Tagihan : ".number_format($_GET["kas_nominal"],0,".",",")." | Sisa : ".number_format($_GET["kas_nominal"]-$tpayment,0,".",",");}else{$purchase_no="";}?>
     var title = "Pembayaran <?=$purchase_no;?>";
     $("title").text(title);
     $(".card-title").text(title);
