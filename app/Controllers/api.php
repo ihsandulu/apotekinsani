@@ -26,6 +26,17 @@ class api extends baseController
         echo $this->db->getLastQuery();
     }
 
+    public function caribatch()
+    {
+        $where["product_batch"] = $_GET["product_batch"];
+        $product = $this->db->table("product")->where($where)->get();
+        $product_id = "";
+        foreach ($product->getResult() as $row) {
+            $product_id = $row->product_id;
+        }
+        echo $product_id;
+    }
+
     public function compressFolder()
     {
         error_reporting(E_ALL);

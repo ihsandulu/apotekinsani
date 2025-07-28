@@ -10,45 +10,45 @@
                     <div class="row">
                         <?php if (!isset($_GET['user_id']) && !isset($_POST['new']) && !isset($_POST['edit']) && !isset($_GET['report'])) {
                             $coltitle = "col-md-8";
-                            $report="";
+                            $report = "";
                         } else {
                             $coltitle = "col-md-8";
-                            $report="?report=OK";
+                            $report = "?report=OK";
                         } ?>
                         <div class="<?= $coltitle; ?>">
                             <h4 class="card-title"></h4>
                             <!-- <h6 class="card-subtitle">Export data to Copy, CSV, Excel, PDF & Print</h6> -->
                         </div>
-                        
+
                         <form action="<?= base_url("purchase"); ?>" method="get" class="col-md-2">
                             <h1 class="page-header col-md-12">
                                 <button class="btn btn-warning btn-block btn-lg" value="OK" style="">Back</button>
-                                <?php if(isset($_GET["report"])){?>
-                                <input name="report" value="OK" type="hidden"/>
-                                <?php }?>
+                                <?php if (isset($_GET["report"])) { ?>
+                                    <input name="report" value="OK" type="hidden" />
+                                <?php } ?>
                             </h1>
                         </form>
                         <?php if (!isset($_GET["report"])) { ?>
-                         <?php 
+                            <?php
                             if (
                                 (
-                                    isset(session()->get("position_administrator")[0][0]) 
+                                    isset(session()->get("position_administrator")[0][0])
                                     && (
-                                        session()->get("position_administrator") == "1" 
+                                        session()->get("position_administrator") == "1"
                                         || session()->get("position_administrator") == "2"
                                     )
                                 ) ||
                                 (
-                                    isset(session()->get("halaman")['18']['act_create']) 
+                                    isset(session()->get("halaman")['18']['act_create'])
                                     && session()->get("halaman")['18']['act_create'] == "1"
                                 )
                             ) { ?>
-                            <form method="post" class="col-md-2">
-                                <h1 class="page-header col-md-12">
-                                    <button name="new" class="btn btn-info btn-block btn-lg" value="OK" style="">New</button>
-                                    <input type="hidden" name="purchased_id" />
-                                </h1>
-                            </form>
+                                <form method="post" class="col-md-2">
+                                    <h1 class="page-header col-md-12">
+                                        <button name="new" class="btn btn-info btn-block btn-lg" value="OK" style="">New</button>
+                                        <input type="hidden" name="purchased_id" />
+                                    </h1>
+                                </form>
                             <?php } ?>
                         <?php } ?>
                     </div>
@@ -64,14 +64,14 @@
                             <div class="lead">
                                 <h3><?= $judul; ?></h3>
                             </div>
-                            <form class="form-horizontal" method="post" enctype="multipart/form-data">   
+                            <form class="form-horizontal" method="post" enctype="multipart/form-data">
                                 <div class="form-group">
                                     <label class="control-label col-sm-2" for="product_id">Produk:</label>
                                     <div class="col-sm-10">
                                         <?php
                                         $product = $this->db->table("product")
-                                            ->join("unit","unit.unit_id=product.unit_id","left")
-                                            ->where("product.store_id",session()->get("store_id"))
+                                            ->join("unit", "unit.unit_id=product.unit_id", "left")
+                                            ->where("product.store_id", session()->get("store_id"))
                                             ->orderBy("product.product_name", "ASC")
                                             ->get();
                                         //echo $this->db->getLastQuery();
@@ -84,72 +84,101 @@
                                             <?php } ?>
                                         </select>
                                         <script>
-                                            function unitname(){;
-                                                let unit_name=$('#product_id option:selected').attr("unit_name");
+                                            function unitname() {
+                                                ;
+                                                let unit_name = $('#product_id option:selected').attr("unit_name");
                                                 $("#unit_name").html(unit_name);
                                             }
                                         </script>
                                     </div>
-                                </div> 
+                                </div>
                                 <div class="form-group">
                                     <label class="control-label col-sm-2" for="purchased_batch">Batch:</label>
                                     <div class="col-sm-10">
-                                        <input type="text" autofocus class="form-control" id="purchased_batch" name="purchased_batch" placeholder="" value="<?= $purchased_batch; ?>">
+                                        <input type="text" autofocus class="form-control" id="purchased_batch" name="purchased_batch" placeholder="" value="<?= $purchased_batch; ?>"
+                                            onkeydown="handleEnter(event)">
                                     </div>
-                                </div>    
+                                </div>
                                 <div class="form-group">
                                     <label class="control-label col-sm-2" for="purchased_outdate">Out of Date:</label>
                                     <div class="col-sm-10">
                                         <input type="date" autofocus class="form-control" id="purchased_outdate" name="purchased_outdate" placeholder="" value="<?= $purchased_outdate; ?>">
                                     </div>
-                                </div>    
+                                </div>
                                 <div class="form-group">
                                     <label class="control-label col-sm-2" for="purchased_qty">Qty (<span id="unit_name"></span>):</label>
                                     <div class="col-sm-10">
-                                        <input required type="text" autofocus class="form-control" id="purchased_qty" name="purchased_qty" placeholder="" value="<?= $purchased_qty; ?>">
+                                        <input required onkeyup="tagihan()" type="text" autofocus class="form-control" id="purchased_qty" name="purchased_qty" placeholder="" value="<?= $purchased_qty; ?>">
                                     </div>
-                                </div>    
+                                </div>
                                 <div class="form-group">
-                                    <label class="control-label col-sm-12" for="purchased_price">Total Harga Keseluruhan (bukan satuan):</label>
+                                    <label class="control-label col-sm-12" for="purchased_sprice">Total Harga Satuan:</label>
                                     <div class="col-sm-12">
-                                        <input required onkeyup="tagihan()" type="number" autofocus class="form-control" id="purchased_price" name="purchased_price" placeholder="" value="<?= $purchased_price; ?>">
+                                        <input required onkeyup="tagihan()" type="number" autofocus class="form-control" id="purchased_sprice" name="purchased_sprice" placeholder="" value="<?= $purchased_sprice; ?>">
                                     </div>
-                                </div>     
-                                <?php if($this->request->getGET("purchase_ppn")==0){
-                                    $hide="";
-                                    }else{
-                                        $hide="hide"; 
-                                        $purchased_ppn=intval($this->request->getGET("purchase_ppn"));
-                                        if($purchased_price==""){$purchased_price=0;}
-                                        if($purchased_ppn>0){$ppn = $purchased_ppn/100*$purchased_price;}else{$ppn=0;}
-                                        $purchased_bill=$purchased_price+$ppn;
-                                    }?>  
-                                <div class="form-group <?=$hide;?>">
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-12" for="purchased_discount">Diskon Satuan:</label>
+                                    <div class="col-sm-12">
+                                        <input required onkeyup="tagihan()" type="number" autofocus class="form-control" id="purchased_discount" name="purchased_discount" placeholder="" value="<?= $purchased_discount; ?>">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-12" for="purchased_price">Total:</label>
+                                    <div class="col-sm-12">
+                                        <input readonly onkeyup="tagihan()" type="number" autofocus class="form-control" id="purchased_price" name="purchased_price" placeholder="" value="<?= $purchased_price; ?>">
+                                    </div>
+                                </div>
+                                <!-- <?php if ($this->request->getGET("purchase_ppn") == 0) {
+                                            $hide = "";
+                                        } else {
+                                            $hide = "hide";
+                                            $purchased_ppn = intval($this->request->getGET("purchase_ppn"));
+                                            if ($purchased_price == "") {
+                                                $purchased_price = 0;
+                                            }
+                                            if ($purchased_ppn > 0) {
+                                                $ppn = $purchased_ppn / 100 * $purchased_price;
+                                            } else {
+                                                $ppn = 0;
+                                            }
+                                            $purchased_bill = $purchased_price + $ppn;
+                                        } ?> -->
+                                <div class="form-group <?= $hide; ?>">
                                     <label class="control-label col-sm-12" for="purchased_ppn">PPN(%):</label>
                                     <div class="col-sm-12">
                                         <input onkeyup="tagihan()" type="number" autofocus class="form-control" id="purchased_ppn" name="purchased_ppn" placeholder="" value="<?= $purchased_ppn; ?>">
                                     </div>
-                                </div>   
-                                <div class="form-group <?=$hide;?>">
+                                </div>
+                                <div class="form-group <?= $hide; ?>">
                                     <label class="control-label col-sm-12" for="purchased_bill">Tagihan setelah PPN:</label>
                                     <div class="col-sm-12">
                                         <input readonly type="number" autofocus class="form-control" id="purchased_bill" name="purchased_bill" placeholder="" value="<?= $purchased_bill; ?>">
                                     </div>
-                                </div>  
+                                </div>
                                 <script>
-                                    function tagihan(){
-                                        let price = $("#purchased_price").val();
-                                        let ppn = $("#purchased_ppn").val();
-                                        if(ppn>0){
-                                            ppnnom = ppn/100*price;
-                                        }else{
-                                            ppnnom=0;
+                                    function tagihan() {
+                                        let qty = $("#purchased_qty").val();
+                                        let sprice = $("#purchased_sprice").val();
+                                        let total = qty * sprice;
+                                        let discount = $("#purchased_discount").val();
+                                        let tdiscountnom = 0;
+                                        if (discount > 0) {
+                                            tdiscountnom = discount / 100 * total;
                                         }
-                                        let bill = parseInt(price)+parseInt(ppnnom);
+                                        let price = parseInt(total) - parseInt(tdiscountnom);
+                                        $("#purchased_price").val(price);
+                                        let ppn = $("#purchased_ppn").val();
+                                        if (ppn > 0) {
+                                            ppnnom = ppn / 100 * price;
+                                        } else {
+                                            ppnnom = 0;
+                                        }
+                                        let bill = parseInt(price) + parseInt(ppnnom);
                                         $('#purchased_bill').val(bill);
                                     }
                                 </script>
-                                
+
 
                                 <input type="hidden" name="purchased_qtyb" value="<?= $purchased_qty; ?>" />
                                 <input type="hidden" name="purchased_id" value="<?= $purchased_id; ?>" />
@@ -163,7 +192,7 @@
                             </form>
                         </div>
                     <?php } else { ?>
-                        
+
 
                         <?php if ($message != "") { ?>
                             <div class="alert alert-info alert-dismissable">
@@ -178,19 +207,21 @@
                                 <thead class="">
                                     <tr>
                                         <?php if (!isset($_GET["report"])) { ?>
-                                        <th>Aksi</th>
-                                        <?php }?>
+                                            <th>Aksi</th>
+                                        <?php } ?>
                                         <th>No.</th>
                                         <th>Toko</th>
                                         <th>Kadaluarsa</th>
                                         <th>Batch</th>
                                         <th>Produk</th>
                                         <th>Qty</th>
-                                        <th>Nominal</th>                                        
-                                        <?php if($this->request->getGET("purchase_ppn")==0){?>  
-                                        <th>PPN</th>
-                                        <th>Tagihan(setelah PPN)</th>
-                                        <?php }?>
+                                        <th>Nominal</th>
+                                        <th>Diskon</th>
+                                        <th>Total</th>
+                                        <?php if ($this->request->getGET("purchase_ppn") == 0) { ?>
+                                            <th>PPN</th>
+                                            <th>Tagihan(setelah PPN)</th>
+                                        <?php } ?>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -200,85 +231,87 @@
                                         ->join("purchase", "purchase.purchase_id=purchased.purchase_id", "left")
                                         ->join("store", "store.store_id=purchased.store_id", "left")
                                         ->join("product", "product.product_id=purchased.product_id", "left")
-                                        ->where("purchased.store_id",session()->get("store_id"))
-                                        ->where("purchased.purchase_id",$this->request->getGet("purchase_id"));
-                                    if(isset($_GET["from"])&&$_GET["from"]!=""){
-                                        $builder->where("purchased.purchased_date >=",$this->request->getGet("from"));
+                                        ->where("purchased.store_id", session()->get("store_id"))
+                                        ->where("purchased.purchase_id", $this->request->getGet("purchase_id"));
+                                    if (isset($_GET["from"]) && $_GET["from"] != "") {
+                                        $builder->where("purchased.purchased_date >=", $this->request->getGet("from"));
                                     }
-                                    if(isset($_GET["to"])&&$_GET["to"]!=""){
-                                        $builder->where("purchased.purchased_date <=",$this->request->getGet("to"));
+                                    if (isset($_GET["to"]) && $_GET["to"] != "") {
+                                        $builder->where("purchased.purchased_date <=", $this->request->getGet("to"));
                                     }
-                                    $usr= $builder
+                                    $usr = $builder
                                         ->orderBy("purchased_id", "DESC")
                                         ->get();
                                     // echo $this->db->getLastquery();
                                     $no = 1;
-                                    foreach ($usr->getResult() as $usr) { 
-                                        ?>
-                                        <tr>     
+                                    foreach ($usr->getResult() as $usr) {
+                                    ?>
+                                        <tr>
                                             <?php if (!isset($_GET["report"])) { ?>
                                                 <td style="padding-left:0px; padding-right:0px;">
-                                                    <?php 
+                                                    <?php
                                                     if (
                                                         (
-                                                            isset(session()->get("position_administrator")[0][0]) 
+                                                            isset(session()->get("position_administrator")[0][0])
                                                             && (
-                                                                session()->get("position_administrator") == "1" 
+                                                                session()->get("position_administrator") == "1"
                                                                 || session()->get("position_administrator") == "2"
                                                             )
                                                         ) ||
                                                         (
-                                                            isset(session()->get("halaman")['18']['act_update']) 
+                                                            isset(session()->get("halaman")['18']['act_update'])
                                                             && session()->get("halaman")['18']['act_update'] == "1"
                                                         )
                                                     ) { ?>
-                                                    <form method="post" class="btn-action" style="">
-                                                        <button class="btn btn-sm btn-warning " name="edit" value="OK"><span class="fa fa-edit" style="color:white;"></span> </button>
-                                                        <input type="hidden" name="purchased_id" value="<?= $usr->purchased_id; ?>" />
-                                                    </form>
-                                                    <?php }?>
-                                                    
-                                                    <?php 
+                                                        <form method="post" class="btn-action" style="">
+                                                            <button class="btn btn-sm btn-warning " name="edit" value="OK"><span class="fa fa-edit" style="color:white;"></span> </button>
+                                                            <input type="hidden" name="purchased_id" value="<?= $usr->purchased_id; ?>" />
+                                                        </form>
+                                                    <?php } ?>
+
+                                                    <?php
                                                     if (
                                                         (
-                                                            isset(session()->get("position_administrator")[0][0]) 
+                                                            isset(session()->get("position_administrator")[0][0])
                                                             && (
-                                                                session()->get("position_administrator") == "1" 
+                                                                session()->get("position_administrator") == "1"
                                                                 || session()->get("position_administrator") == "2"
                                                             )
                                                         ) ||
                                                         (
-                                                            isset(session()->get("halaman")['18']['act_delete']) 
+                                                            isset(session()->get("halaman")['18']['act_delete'])
                                                             && session()->get("halaman")['18']['act_delete'] == "1"
                                                         )
                                                     ) { ?>
-                                                    <form method="post" class="btn-action" style="">
-                                                        <button class="btn btn-sm btn-danger delete" onclick="return confirm(' you want to delete?');" name="delete" value="OK"><span class="fa fa-close" style="color:white;"></span> </button>
-                                                        <input type="hidden" name="purchased_id" value="<?= $usr->purchased_id; ?>" />
-                                                        <input type="hidden" name="purchased_bill" value="<?= $usr->purchased_bill; ?>" />
-                                                        <input type="hidden" name="purchased_qty" value="<?= $usr->purchased_qty; ?>" />
-                                                        <input type="hidden" name="product_id" value="<?= $usr->product_id; ?>" />
-                                                    </form>
-                                                    <?php }?>
+                                                        <form method="post" class="btn-action" style="">
+                                                            <button class="btn btn-sm btn-danger delete" onclick="return confirm(' you want to delete?');" name="delete" value="OK"><span class="fa fa-close" style="color:white;"></span> </button>
+                                                            <input type="hidden" name="purchased_id" value="<?= $usr->purchased_id; ?>" />
+                                                            <input type="hidden" name="purchased_bill" value="<?= $usr->purchased_bill; ?>" />
+                                                            <input type="hidden" name="purchased_qty" value="<?= $usr->purchased_qty; ?>" />
+                                                            <input type="hidden" name="product_id" value="<?= $usr->product_id; ?>" />
+                                                        </form>
+                                                    <?php } ?>
                                                 </td>
-                                            <?php } ?>                                       
+                                            <?php } ?>
                                             <td><?= $no++; ?></td>
                                             <td><?= $usr->store_name; ?></td>
                                             <td><?= $usr->purchased_outdate; ?></td>
                                             <td><?= $usr->purchased_batch; ?></td>
                                             <td><?= $usr->product_name; ?></td>
-                                            <td><?= number_format($usr->purchased_qty,0,".",","); ?></td>
-                                            <td><?= number_format($usr->purchased_price,0,".",","); ?></td>
-                                            <?php if($this->request->getGET("purchase_ppn")==0){?>  
-                                            <td><?= $usr->purchased_ppn; ?> %</td>
-                                            <td><?= number_format($usr->purchased_bill,0,".",","); ?></td>
-                                            <?php }?>
+                                            <td><?= number_format($usr->purchased_qty, 0, ".", ","); ?></td>
+                                            <td><?= number_format($usr->purchased_sprice, 0, ".", ","); ?></td>
+                                            <td><?= number_format($usr->purchased_discount, 0, ".", ","); ?></td>
+                                            <td><?= number_format($usr->purchased_price, 0, ".", ","); ?></td>
+                                            <?php if ($this->request->getGET("purchase_ppn") == 0) { ?>
+                                                <td><?= $usr->purchased_ppn; ?> %</td>
+                                                <td><?= number_format($usr->purchased_bill, 0, ".", ","); ?></td>
+                                            <?php } ?>
                                         </tr>
                                     <?php } ?>
                                 </tbody>
                             </table>
                         </div>
-                    <?php }?>
+                    <?php } ?>
                 </div>
             </div>
         </div>
@@ -286,11 +319,30 @@
 </div>
 <script>
     $('.select').select2();
-    var title = "Laporan Detil Pembelian <?=$this->request->getGET("purchase_no");?>";
+    var title = "Laporan Detil Pembelian <?= $this->request->getGET("purchase_no"); ?>";
     $("title").text(title);
     $(".card-title").text(title);
     $("#page-title").text(title);
     $("#page-title-link").text(title);
+</script>
+<script>
+    function handleEnter(event) {
+        if (event.key === "Enter") {
+            event.preventDefault(); // Mencegah form submit
+            caribatch(); // Panggil fungsi kamu
+        }
+    }
+
+    function caribatch() {
+        let product_batch = $("#purchased_batch").val();
+        // alert('<?= base_url("api/caribatch"); ?>?product_batch='+product_batch);
+        $.get("<?= base_url("api/caribatch"); ?>", {
+                product_batch: product_batch
+            })
+            .done(function(data) {
+                $("#product_id").val(data).trigger('change');
+            });
+    }
 </script>
 
 <?php echo  $this->include("template/footer_v"); ?>

@@ -103,6 +103,7 @@ class purchased_m extends core_m
             ->getRow()
             ->product_stock;
 
+            $inputp["product_buy"]=$input["purchased_price"]/$input["purchased_qty"];
             $inputp["product_stock"]=$stock+$input["purchased_qty"];
             $wherep["product_id"]=$input["product_id"];
             $this->db->table("product")
@@ -145,7 +146,8 @@ class purchased_m extends core_m
             ->get()
             ->getRow()
             ->product_stock;
-            $stockawal=$stock-$this->request->getPost("purchased_qtyb");
+            $stockawal=$stock-$this->request->getPost("purchased_qtyb");            
+            $inputp["product_buy"]=$input["purchased_price"]/$input["purchased_qty"];
             $inputp["product_stock"]=$stockawal+$this->request->getPost("purchased_qty");
             $wherep["product_id"]=$this->request->getPost("product_id");
             $this->db->table("product")
