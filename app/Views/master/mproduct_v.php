@@ -258,9 +258,46 @@
                                 <strong><?= $message; ?></strong><br /><?= $uploadproduct_picture; ?>
                             </div>
                         <?php } ?>
+                        <?php
+                        // Ambil data paging dari GET
+                        $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+                        $perPage = 50;
+                        $offset = ($page - 1) * $perPage;
+                        $search = isset($_GET['search']) ? trim($_GET['search']) : '';
 
+                        // Ambil total data
+                        $builder =  $this->db
+                            ->table("product")
+                            ->join("category", "category.category_id=product.category_id", "left")
+                            ->join("unit", "unit.unit_id=product.unit_id", "left")
+                            ->join("store", "store.store_id=product.store_id", "left")
+                            ->where("product.store_id", session()->get("store_id"));
+                        if ($search !== '') {
+                            $builder->groupStart()
+                                ->like('category.category_name', $search)
+                                ->orLike('unit.unit_name', $search)
+                                ->orLike('product.product_name', $search)
+                                ->orLike('product.product_batch', $search)
+                                ->orLike('product.product_ube', $search)
+                                ->groupEnd();
+                        }
+                        $total = $builder->countAllResults(false);
+                        // echo "Total=".$total;
+                        // Hitung total halaman
+                        $totalPages = ceil($total / $perPage);
+                        ?>
                         <div class="table-responsive m-t-40">
-                            <table id="example23" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
+                            <!-- FORM SEARCH -->
+                            <form method="get" class="row g-3 mb-3">
+                                <div class="col-12 text-danger" style="font-size:12px; font-weight:bold;">Kosongkan kolom pencarian ini, untuk menampilkan semua data!</div>
+                                <div class="col-auto">
+                                    <input data-bs-toggle="tooltip" data-bs-placement="top" title="Kosongkan kolom pencarian ini, untuk menampilkan semua data" type="text" name="search" value="<?= esc($search) ?>" style="width:400px;" class="form-control" placeholder="Cari ...">
+                                </div>
+                                <div class="col-auto">
+                                    <button type="submit" class="btn btn-primary">Cari</button>
+                                </div>
+                            </form>
+                            <table id="" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
                                 <!-- <table id="dataTable" class="table table-condensed table-hover w-auto dtable"> -->
                                 <thead class="">
                                     <tr>
@@ -284,15 +321,26 @@
                                 <tbody>
                                     <?php
                                     // echo $x;die;
-                                    $usr = $this->db
+                                    $builder = $this->db
                                         ->table("product")
                                         ->join("category", "category.category_id=product.category_id", "left")
                                         ->join("unit", "unit.unit_id=product.unit_id", "left")
                                         ->join("store", "store.store_id=product.store_id", "left")
-                                        ->where("product.store_id", session()->get("store_id"))
+                                        ->where("product.store_id", session()->get("store_id"));
+                                    if ($search !== '') {
+                                        $builder->groupStart()
+                                            ->like('category.category_name', $search)
+                                            ->orLike('unit.unit_name', $search)
+                                            ->orLike('product.product_name', $search)
+                                            ->orLike('product.product_batch', $search)
+                                            ->orLike('product.product_ube', $search)
+                                            ->groupEnd();
+                                    }
+                                    $usr = $builder
                                         ->orderBy("product_name", "ASC")
+                                        ->limit($perPage, $offset)
                                         ->get();
-                                    //echo $this->db->getLastquery();
+                                    // echo $this->db->getLastquery();
                                     $no = 1;
                                     foreach ($usr->getResult() as $usr) {
                                         $jual = $this->db
@@ -427,6 +475,16 @@
                                     <?php } ?>
                                 </tbody>
                             </table>
+                            <!-- PAGINASI -->
+                            <nav>
+                                <ul class="pagination">
+                                    <?php for ($i = 1; $i <= $totalPages; $i++): ?>
+                                        <li class="page-item <?= ($i == $page) ? 'active' : '' ?>">
+                                            <a class="page-link" href="?search=<?= urlencode($search) ?>&page=<?= $i ?>"><?= $i ?></a>
+                                        </li>
+                                    <?php endfor; ?>
+                                </ul>
+                            </nav>
                         </div>
                     <?php } ?>
                 </div>
@@ -441,6 +499,7 @@
     $(".card-title").text(title);
     $("#page-title").text(title);
     $("#page-title-link").text(title);
+
     function ibatch(pid) {
         var product_batch = $("#product_batch" + pid).val();
         $.ajax({
