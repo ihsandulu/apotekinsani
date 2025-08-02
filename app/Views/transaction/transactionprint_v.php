@@ -111,6 +111,7 @@ if($builder->countAll()>0){
                             </tr>
                         <?php } 
                         $tdiskon=$transaction->transaction_discount;
+                        $resep=$transaction->transaction_resep;
                         $dtprice = $tprice - $discount;
                         ?>
                         <tr>
@@ -125,6 +126,13 @@ if($builder->countAll()>0){
                             <th>
                                 <?= number_format($tdiskon,0,".",","); ?>
                                 <input type="hidden" id="diskon" value="<?=$tdiskon;?>"/>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th colspan="2" class="text-right">Jasa Resep</th>
+                            <th>
+                                <?= number_format($resep,0,".",","); ?>
+                                <input type="hidden" id="resep" value="<?=$resep;?>"/>
                             </th>
                         </tr>
                         <tr>

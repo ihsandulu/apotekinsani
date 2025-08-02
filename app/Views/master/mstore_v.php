@@ -85,6 +85,13 @@
                                 </div>
 
                                 <div class="form-group">
+                                    <label class="control-label col-sm-12" for="store_resep">Prosentase Resep:<br/><span class="text-danger">Prosentase kanaikan harga ketika memakai resep.</span></label>
+                                    <div class="col-sm-10">
+                                        <input type="number" autofocus class="form-control" id="store_resep" name="store_resep" placeholder="" value="<?= $store_resep; ?>">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
                                     <label class="control-label col-sm-12" for="store_noteinvoice">Catatan Nota Penjualan:</label>
                                     <div class="col-sm-10">
                                         <textarea class="form-control" id="store_noteinvoice" name="store_noteinvoice" placeholder="Mis:Barang tidak dapat ditukar."><?= $store_noteinvoice; ?></textarea>

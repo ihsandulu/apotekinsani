@@ -64,15 +64,15 @@
         })
     }
 
-    function hidebar(){
+    function hidebar() {
         // $(".scroll-sidebar").toggleClass("hidebar");
-        setTimeout(function(){
+        setTimeout(function() {
             $(".scroll-sidebar").css({
-                "height":"inherit",
+                "height": "inherit",
                 "overflow": "scroll"
             });
-        },500);
-        
+        }, 500);
+
     }
 
 
@@ -114,6 +114,10 @@
 
             $(a).children().removeClass("fa-minus").addClass("fa-plus");
         }
+    }
+
+    function formatRibuan(angka) {
+        return angka.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
     }
 </script>
 

@@ -231,26 +231,34 @@
                 <div class="col-12" id="nota">
 
                 </div>
-                <div onclick="fokus('bayar')" onfocusout="fokus('barcode');" class="modal " id="bayar">
+                <div onclick="" onfocusout="" class="modal " id="bayar">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h4 class="modal-title">Pembayaran</h4>
                             </div>
                             <div class="modal-body">
+                                <div class="form-group" style="margin: 0 0 0 0;">
+                                    <label for="uang">Jasa Resep:</label> &nbsp
+                                    <!-- <input onkeyup="resep('presep')" onfocus="resep('presep')" onclick="resep('presep')" type="number" class="" id="presep" placeholder="Prosentase">%
+                                        <input onkeyup="resep('nresep')" onfocus="resep('nresep')" onclick="resep('nresep')" type="number" class="" id="nresep" placeholder="Nominal"> -->
+                                    <input type="number" onkeyup="cresep()" class="" id="tresep" placeholder="Nominal">
+                                    <!-- <button class="btn btn-warning btn-xs fa fa-check" type="button" onclick="resepsubmit()"></button> -->
+                                </div>
                                 <div>Tagihan : Rp. <span class="bill"></span></div>
                                 <div>
-                                    <div class="form-group">
+
+                                    <div class="form-group m-0">
                                         <label for="uang">Jumlah Uang:</label> &nbsp
-                                        <input onclick="fokus('bayar')" onkeyup="kembalian();" type="number" class="form-control" id="uang"> &nbsp
+                                        <input onclick="fokus('bayar')" onkeyup="kembalian();" type="number" class="form-control" id="uang">
                                     </div>
-                                    <div class="form-group">
+                                    <div class="form-group mt-0">
                                         <label for="account_id">Tipe Pembayaran:</label>
                                         <select readonly id="account_id" class="form-control">
                                             <?php $account = $this->db->table("account")
-                                            ->where("account_type","Debet")
-                                            ->orderBy("account_sort","ASC")
-                                            ->get();
+                                                ->where("account_type", "Debet")
+                                                ->orderBy("account_sort", "ASC")
+                                                ->get();
                                             foreach ($account->getResult() as $account) {
                                                 if ($account->account_id == 2) {
                                                     $selected = "selected";
@@ -261,7 +269,7 @@
                                             <?php } ?>
                                         </select>
                                     </div>
-                                    <button onclick="pelunasan();" type="button" class="btn btn-primary">Submit</button>
+                                    <button onclick="pelunasan();" type="button" class="btn btn-primary btn-block">Submit</button>
                                 </div>
                                 <div>Pembayaran : Rp. <span class="dibayar"></span></div>
                                 <div>Kembalian : Rp. <span class="kembalian"></span></div>
@@ -445,14 +453,14 @@
                         $.get("<?= base_url("nominalkas"); ?>")
                             .done(function(data) {
                                 $("#kasterakhirval").val(data);
-                                $(".kasterakhir").html(formatRupiah(data));
+                                $(".kasterakhir").html(formatRibuan(data));
                             });
                     }
 
                     function modalawal() {
                         $.get("<?= base_url("modalawalkas"); ?>")
                             .done(function(data) {
-                                $(".kasawal").html(formatRupiah(data));
+                                $(".kasawal").html(formatRibuan(data));
                             });
                     }
 
@@ -608,17 +616,55 @@
                             });
                     }
 
+                    /* function resep(pilih) {
+                        let presep = parseInt($("#presep").val()) || 0;
+                        let nresep = parseInt($("#nresep").val()) || 0;
+                        let tresep = "";
+                        if (pilih == "nresep") {
+                            $("#presep").val("");
+                            tresep = nresep;
+                        }
+                        if (pilih == "presep") {
+                            $("#nresep").val("");
+                            tresep = (presep / 100 * tagihan);
+                        }
+                        $("#tresep").val(tresep);
+                    } */
+
+                    function cresep() {
+                        let tresep = parseInt($("#tresep").val()) || 0;
+                        let dtagihan = parseInt($("#dtagihan").val()) || 0;
+                        let diskon = parseInt($("#diskon").val()) || 0;
+                        let tagihan = dtagihan - diskon + tresep;
+                        let ttresep = formatRibuan(tresep);
+                        let ttagihan = formatRibuan(tagihan);
+                        $("#resep").val(tresep);
+                        $(".resep").html(ttresep);
+                        $("#tagihan").val(tagihan);
+                        $(".bill").text(ttagihan);
+
+                    }
+
+                    function resepsubmit(pilih) {
+                        let tresep = parseInt($("#tresep").val()) || 0;
+                        let dtagihan = parseInt($("#dtagihan").val()) || 0;
+                        let diskon = parseInt($("#diskon").val()) || 0;
+                        $("#resep").val(tresep);
+                        $("#tagihan").val(dtagihan - diskon + tresep);
+                    }
+
                     function pelunasan() {
                         let account_id = $("#account_id").val();
                         let transaction_id = $("#transaction_id").val();
                         let transaction_no = $("#transaction_no").val();
                         let transaction_dbill = $("#dtagihan").val();
+                        let transaction_resep = $("#tresep").val();
                         let transaction_bill = $("#tagihan").val();
                         let transaction_discount = $("#diskon").val();
                         let transaction_pay = $("#bayarannya").val();
                         let transaction_change = $("#kembaliannya").val();
                         let shift = $("#kasshift").val();
-                        // $('#test').html('<?= base_url("pelunasan"); ?>?account_id='+account_id+'&transaction_id='+transaction_id+"&transaction_bill="+transaction_bill+"&transaction_pay="+transaction_pay+"&transaction_change="+transaction_change+"&shift="+shift+"&transaction_no="+transaction_no);
+                        // $('#test').html('<?= base_url("pelunasan"); ?>?account_id='+account_id+'&transaction_id='+transaction_id+"&transaction_bill="+transaction_bill+"&transaction_pay="+transaction_pay+"&transaction_change="+transaction_change+"&shift="+shift+"&transaction_no="+transaction_no+"&transaction_resep="+transaction_resep);
                         $.get("<?= base_url("pelunasan"); ?>", {
                                 account_id: account_id,
                                 transaction_id: transaction_id,
@@ -628,7 +674,8 @@
                                 transaction_pay: transaction_pay,
                                 transaction_change: transaction_change,
                                 shift: shift,
-                                transaction_no: transaction_no
+                                transaction_no: transaction_no,
+                                transaction_resep: transaction_resep
                             })
                             .done(function(data) {
                                 updatestatus(transaction_id, data);
@@ -639,7 +686,7 @@
                             });
                     }
 
-                    function formatRupiah(num) {
+                    function formatRibuan(num) {
                         var str = num.toString().replace("", ""),
                             parts = false,
                             output = [],
@@ -665,13 +712,15 @@
 
                     function kembalian() {
                         let uang = $("#uang").val();
-                        let tagihan = $("#tagihan").val();
-                        let kembalian = uang - tagihan;
+                        let tresep = parseInt($("#tresep").val()) || 0;
+                        let dtagihan = parseInt($("#dtagihan").val()) || 0;
+                        let diskon = parseInt($("#diskon").val()) || 0;
+                        let kembalian = uang - (dtagihan - diskon + tresep);
                         $("#kembaliannya").val(kembalian);
                         $("#bayarannya").val(uang);
                         // alert(kembalian);
-                        $(".dibayar").html(formatRupiah(uang));
-                        $(".kembalian").html(formatRupiah(kembalian));
+                        $(".dibayar").html(formatRibuan(uang));
+                        $(".kembalian").html(formatRibuan(kembalian));
                     }
 
                     function closebayar() {
@@ -682,7 +731,9 @@
                         $("#bayar").modal();
                         fokus('bayar');
                         let tagihan = $("#tagihan").val();
-                        $(".bill").html(formatRupiah(tagihan));
+                        let resep = $("#resep").val();
+                        $(".bill").html(formatRibuan(tagihan));
+                        $("#tresep").val(resep);
                     }
 
                     function cariproduk() {

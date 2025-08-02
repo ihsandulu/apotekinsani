@@ -56,6 +56,7 @@ $routes->add('/listproductlist', 'transaction\transaction::listproductlist');
 $routes->add('/deletetransactiond', 'transaction\transaction::deletetransactiond');
 $routes->add('/updateqty', 'transaction\transaction::updateqty');
 $routes->add('/pelunasan', 'transaction\transaction::pelunasan');
+$routes->add('/resep', 'transaction\transaction::resep');
 $routes->add('/updatestatus', 'transaction\transaction::updatestatus');
 $routes->add('/transactionprint', 'transaction\transaction::print');
 $routes->add('/cekstatus', 'transaction\transaction::cekstatus');

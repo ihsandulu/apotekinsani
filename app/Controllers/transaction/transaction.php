@@ -583,12 +583,14 @@ class transaction extends baseController
         echo $data["message"];
     }
 
+    
     public function pelunasan()
     {
         $account_id = $this->request->getGet("account_id");
         $transaction_id = $this->request->getGet("transaction_id");
         $transaction_no = $this->request->getGet("transaction_no");
         $transaction_dbill = $this->request->getGet("transaction_dbill");
+        $transaction_resep = $this->request->getGet("transaction_resep");
         $transaction_bill = $this->request->getGet("transaction_bill");
         $transaction_discount = $this->request->getGet("transaction_discount");
         $transaction_pay = $this->request->getGet("transaction_pay");
@@ -597,6 +599,7 @@ class transaction extends baseController
         $transaction_status = 0;
 
         $input["transaction_dbill"] = $transaction_dbill;
+        $input["transaction_resep"] = $transaction_resep;
         $input["transaction_bill"] = $transaction_bill;
         $input["transaction_discount"] = $transaction_discount;
         $input["transaction_pay"] = $transaction_pay;
@@ -869,7 +872,8 @@ class transaction extends baseController
                                 $tdiskon += $diskon;
                             }
                         }
-                        $dtprice = $tprice - $tdiskon;
+                        $resep = $transaction->transaction_resep;
+                        $dtprice = $tprice - $tdiskon + $resep;
                         ?>
                         <tr>
                             <th colspan="2">Total</th>
@@ -886,9 +890,16 @@ class transaction extends baseController
                             </th>
                         </tr>
                         <tr>
+                            <th colspan="2">Jasa Resep</th>
+                            <th>
+                                <span class="resep"><?= number_format($resep, 0, ",", "."); ?></span>
+                                <input type="hidden" id="resep" value="<?= $resep; ?>" />
+                            </th>
+                        </tr>
+                        <tr>
                             <th colspan="2">Total Tagihan</th>
                             <th>
-                                <?= number_format($dtprice, 0, ",", "."); ?>
+                                <span class="bill"><?= number_format($dtprice, 0, ",", "."); ?></span>
                                 <input type="hidden" id="tagihan" value="<?= $dtprice; ?>" />
                             </th>
                         </tr>
@@ -914,7 +925,7 @@ class transaction extends baseController
                                 } ?>
                                 <input type="hidden" id="bayarannya" value="<?= $transaction->transaction_pay; ?>" />
                             </th>
-                            <th class="dibayar"><?= $transaction->transaction_pay; ?></th>
+                            <th class="dibayar"><?= number_format($transaction->transaction_pay,0,",","."); ?></th>
                         </tr>
                         <tr>
                             <th colspan="2">
@@ -922,7 +933,7 @@ class transaction extends baseController
                                 <input type="hidden" id="kembaliannya" value="<?= $transaction->transaction_change; ?>" />
                                 <input type="hidden" id="status" value="<?= $transaction->transaction_status; ?>" />
                             </th>
-                            <th class="kembalian"><?= $transaction->transaction_change; ?></th>
+                            <th class="kembalian"><?= number_format($transaction->transaction_change,0,",","."); ?></th>
                         </tr>
                     </tbody>
                 </table>
