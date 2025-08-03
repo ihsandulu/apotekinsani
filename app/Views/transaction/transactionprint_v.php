@@ -208,12 +208,8 @@ if ($builder->countAll() > 0) {
 
     window.onload = function() {
         if (isMobile()) {
-            // Cetak dengan RawBT
-            window.onload = function() {
-                if (/Android/i.test(navigator.userAgent)) {
-                    // Buat teks struk manual
-                    const teksStruk = `
-<?= strtoupper($store->store_name) . "\n"; ?>
+            // Buat teks struk manual
+            const teksStruk = `<?= strtoupper($store->store_name) . "\n"; ?>
 <?= $store->store_address . "\n"; ?>
 Mobile: <?= $store->store_phone . ", " . session()->get("store_web") . "\n"; ?>
 --------------------------------\n
@@ -223,29 +219,34 @@ Tanggal   : <?= date("d M Y", strtotime($transaction->transaction_date)) . "\n";
 <?php
 $usr = $this->db
     ->table("transactiond")
-    ->select("*,SUM(transactiond_qty)AS qty, SUM(transactiond_price)AS price,")
+    ->select("*, SUM(transactiond_qty) AS qty, SUM(transactiond_price) AS price")
     ->join("product", "product.product_id=transactiond.product_id", "left")
     ->join("unit", "unit.unit_id=product.unit_id", "left")
     ->where("product.store_id", session()->get("store_id"))
     ->where("transactiond.transaction_id", $this->request->getGet("transaction_id"))
     ->groupBy("transactiond.product_id")
     ->orderBy("product_name", "ASC")
-    ->get();
-//echo $this->db->getLastquery();
+    ->get()
+    ->getResult();
+
 $no = 1;
 $tprice = 0;
-$discount = 0;
-foreach ($usr->getResult() as $item) {
+foreach ($usr as $item) {
+    $qty = $item->qty;
+    $price = $item->price;
+    $tprice += $price;
     echo sprintf(
         "%d. %s\n    %s x %s %s = %s\n",
         $no++,
         $item->product_name,
-        number_format($item->qty, 0),
-        number_format($item->price / $item->qty, 0),
+        number_format($qty, 0),
+        number_format($price / $qty, 0),
         $item->unit_name,
-        number_format($item->price, 0)
+        number_format($price, 0)
     );
 }
+$tdiskon = $transaction->transaction_discount;
+$resep = $transaction->transaction_resep;
 ?>
 --------------------------------\n
 Total      : <?= number_format($tprice, 0) . "\n"; ?>
@@ -255,27 +256,20 @@ Tagihan    : <?= number_format($transaction->transaction_bill, 0) . "\n"; ?>
 Bayar      : <?= number_format($transaction->transaction_pay, 0) . "\n"; ?>
 Kembalian  : <?= number_format($transaction->transaction_change, 0) . "\n"; ?>
 --------------------------------\n
-<?= $store->store_noteinvoice . "\n"; ?>
-        `;
+<?= $store->store_noteinvoice . "\n"; ?>`;
 
-                    // Encode dan kirim ke RawBT
-                    const encoded = encodeURIComponent(teksStruk);
-                    window.location.href = "rawbt:print?text=" + encoded;
-                } else {
-                    window.print();
-                    setTimeout(() => window.close(), 500);
-                }
-            };
+            // Kirim ke RawBT
+            const encoded = encodeURIComponent(teksStruk);
+            window.location.href = "rawbt:print?text=" + encoded;
 
         } else {
-            // Cetak dengan printer biasa
+            // Jalankan window.print untuk desktop
             window.print();
-            setTimeout(function() {
-                window.close();
-            }, 500);
+            setTimeout(() => window.close(), 500);
         }
     };
 </script>
+
 
 
 <?php echo  $this->include("template/footersaja_v"); ?>
