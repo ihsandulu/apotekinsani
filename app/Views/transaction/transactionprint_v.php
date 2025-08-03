@@ -75,6 +75,7 @@
         border: black solid 1px;
     }
 </style>
+<a href="rawbt:print?text=Halo%20Dunia%0AStruk%20Tes">Cetak</a>
 <?php
 $store = $this->db->table("store")->where("store_id", session()->get("store_id"))->get()->getRow();
 $builder = $this->db->table("transaction")
