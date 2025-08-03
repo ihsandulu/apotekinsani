@@ -260,7 +260,7 @@ Kembalian  : <?= number_format($transaction->transaction_change, 0) . "\n"; ?>
 
             // Kirim ke RawBT
             const encoded = encodeURIComponent(teksStruk);
-            window.location.href = "rawbt:print?text=" + encoded;
+            window.location.href = "rawbt:" + encoded;
 
         } else {
             // Jalankan window.print untuk desktop
