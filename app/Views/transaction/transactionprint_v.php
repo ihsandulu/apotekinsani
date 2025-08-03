@@ -75,7 +75,7 @@
         border: black solid 1px;
     }
 </style>
-<a href="rawbt:print?text=Halo%20Dunia%0AStruk%20Tes">Cetak</a>
+
 <?php
 $store = $this->db->table("store")->where("store_id", session()->get("store_id"))->get()->getRow();
 $builder = $this->db->table("transaction")
@@ -197,10 +197,30 @@ if ($builder->countAll() > 0) {
     <h1 class="centerpage">Data tidak ditemukan!</h1>
 <?php } ?>
 <script>
-    //window.print();
-    /* setTimeout(function() {
+   /*  setTimeout(function() {
         this.close();
     }, 500); */
 </script>
+<script>
+    function isMobile() {
+        return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    }
+
+    window.onload = function () {
+        if (isMobile()) {
+            // Cetak dengan RawBT
+            const printableContent = document.body.innerText;
+            const encodedText = encodeURIComponent(printableContent);
+            window.location.href = "rawbt:print?text=" + encodedText;
+        } else {
+            // Cetak dengan printer biasa
+            window.print();
+            setTimeout(function () {
+                window.close();
+            }, 500);
+        }
+    };
+</script>
+
 
 <?php echo  $this->include("template/footersaja_v"); ?>
