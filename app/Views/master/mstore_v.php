@@ -94,7 +94,7 @@
                                 <div class="form-group">
                                     <label class="control-label col-sm-12" for="store_noteinvoice">Catatan Nota Penjualan:</label>
                                     <div class="col-sm-10">
-                                        <textarea class="form-control" id="store_noteinvoice" name="store_noteinvoice" placeholder="Mis:Barang tidak dapat ditukar."><?= $store_noteinvoice; ?></textarea>
+                                        <input class="form-control" id="store_noteinvoice" name="store_noteinvoice" placeholder="Mis:Barang tidak dapat ditukar." value="<?= $store_noteinvoice; ?>"/>
                                     </div>
                                 </div>
 
