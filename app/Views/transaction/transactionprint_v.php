@@ -221,7 +221,20 @@ Invoice No: <?= $transaction->transaction_no . "\n"; ?>
 Tanggal   : <?= date("d M Y", strtotime($transaction->transaction_date)) . "\n"; ?>
 --------------------------------\n
 <?php
+$usr = $this->db
+    ->table("transactiond")
+    ->select("*,SUM(transactiond_qty)AS qty, SUM(transactiond_price)AS price,")
+    ->join("product", "product.product_id=transactiond.product_id", "left")
+    ->join("unit", "unit.unit_id=product.unit_id", "left")
+    ->where("product.store_id", session()->get("store_id"))
+    ->where("transactiond.transaction_id", $this->request->getGet("transaction_id"))
+    ->groupBy("transactiond.product_id")
+    ->orderBy("product_name", "ASC")
+    ->get();
+//echo $this->db->getLastquery();
 $no = 1;
+$tprice = 0;
+$discount = 0;
 foreach ($usr->getResult() as $item) {
     echo sprintf(
         "%d. %s\n    %s x %s %s = %s\n",
