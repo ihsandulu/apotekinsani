@@ -197,12 +197,10 @@ if ($builder->countAll() > 0) {
     <h1 class="centerpage">Data tidak ditemukan!</h1>
 <?php } ?>
 <script>
-    window.print();
-
-
-    setTimeout(function() {
+    //window.print();
+    /* setTimeout(function() {
         this.close();
-    }, 500);
+    }, 500); */
 </script>
 
 <?php echo  $this->include("template/footersaja_v"); ?>
