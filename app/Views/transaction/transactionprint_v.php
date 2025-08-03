@@ -197,7 +197,7 @@ if ($builder->countAll() > 0) {
     <h1 class="centerpage">Data tidak ditemukan!</h1>
 <?php } ?>
 <script>
-   /*  setTimeout(function() {
+    /*  setTimeout(function() {
         this.close();
     }, 500); */
 </script>
@@ -206,16 +206,58 @@ if ($builder->countAll() > 0) {
         return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
     }
 
-    window.onload = function () {
+    window.onload = function() {
         if (isMobile()) {
             // Cetak dengan RawBT
-            const printableContent = document.body.innerText;
-            const encodedText = encodeURIComponent(printableContent);
-            window.location.href = "rawbt:print?text=" + encodedText;
+            window.onload = function() {
+                if (/Android/i.test(navigator.userAgent)) {
+                    // Buat teks struk manual
+                    const teksStruk = `
+<?= strtoupper($store->store_name) . "\n"; ?>
+<?= $store->store_address . "\n"; ?>
+Mobile: <?= $store->store_phone . ", " . session()->get("store_web") . "\n"; ?>
+--------------------------------\n
+Invoice No: <?= $transaction->transaction_no . "\n"; ?>
+Tanggal   : <?= date("d M Y", strtotime($transaction->transaction_date)) . "\n"; ?>
+--------------------------------\n
+<?php
+$no = 1;
+foreach ($usr->getResult() as $item) {
+    echo sprintf(
+        "%d. %s\n    %s x %s %s = %s\n",
+        $no++,
+        $item->product_name,
+        number_format($item->qty, 0),
+        number_format($item->price / $item->qty, 0),
+        $item->unit_name,
+        number_format($item->price, 0)
+    );
+}
+?>
+--------------------------------\n
+Total      : <?= number_format($tprice, 0) . "\n"; ?>
+Discount   : <?= number_format($tdiskon, 0) . "\n"; ?>
+Jasa Resep : <?= number_format($resep, 0) . "\n"; ?>
+Tagihan    : <?= number_format($transaction->transaction_bill, 0) . "\n"; ?>
+Bayar      : <?= number_format($transaction->transaction_pay, 0) . "\n"; ?>
+Kembalian  : <?= number_format($transaction->transaction_change, 0) . "\n"; ?>
+--------------------------------\n
+<?= $store->store_noteinvoice . "\n"; ?>
+        `;
+
+                    // Encode dan kirim ke RawBT
+                    const encoded = encodeURIComponent(teksStruk);
+                    window.location.href = "rawbt:print?text=" + encoded;
+                } else {
+                    window.print();
+                    setTimeout(() => window.close(), 500);
+                }
+            };
+
         } else {
             // Cetak dengan printer biasa
             window.print();
-            setTimeout(function () {
+            setTimeout(function() {
                 window.close();
             }, 500);
         }
