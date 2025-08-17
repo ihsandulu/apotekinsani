@@ -179,14 +179,23 @@
                                             function itungprice(id) {
                                                 let sell_percent = parseInt($("#sell_percent" + id).val());
                                                 let product_buy = parseInt($("#product_buy").val());
-                                                let sell_price = ((product_buy * sell_percent) / 100) + product_buy;
+                                                let bproduct_buy = 1;
+                                                if (product_buy>0) {
+                                                    bproduct_buy = product_buy;
+                                                }
+                                                let sell_price = ((bproduct_buy * sell_percent) / 100) + product_buy;
                                                 $("#sell_price" + id).val(sell_price);
                                             }
 
                                             function itungpercent(id) {
                                                 let sell_price = parseInt($("#sell_price" + id).val());
                                                 let product_buy = parseInt($("#product_buy").val());
-                                                let sell_percent = ((sell_price - product_buy) / product_buy) * 100;
+                                                let bproduct_buy = 1;
+                                                if (product_buy>0) {
+                                                    bproduct_buy = product_buy;
+                                                }
+                                                let sell_percent = ((sell_price - product_buy) / bproduct_buy) * 100;
+                                                // sell_percent = bproduct_buy;
                                                 $("#sell_percent" + id).val(sell_percent);
                                             }
                                         </script>

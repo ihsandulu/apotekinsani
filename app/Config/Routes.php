@@ -74,6 +74,8 @@ $routes->add('/payment', 'transaction\payment::index');
 $routes->add('/purchase', 'transaction\purchase::index');
 $routes->add('/purchased', 'transaction\purchased::index');
 $routes->add('/kasmodal', 'transaction\transaction::kasmodal');
+$routes->add('/transactionnon', 'transaction\transactionnon::index');
+$routes->add('/transactionnond', 'transaction\transactionnond::index');
 
 $routes->add('/msupplier', 'master\msupplier::index');
 $routes->add('/mproductbuy', 'master\mproduct::buy');
