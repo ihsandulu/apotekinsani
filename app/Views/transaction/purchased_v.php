@@ -112,13 +112,13 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="control-label col-sm-12" for="purchased_sprice">Total Harga Satuan:</label>
+                                    <label class="control-label col-sm-12" for="purchased_sprice">Harga Satuan:</label>
                                     <div class="col-sm-12">
                                         <input required onkeyup="tagihan()" type="number" autofocus class="form-control" id="purchased_sprice" name="purchased_sprice" placeholder="" value="<?= $purchased_sprice; ?>">
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="control-label col-sm-12" for="purchased_discount">Diskon Satuan:</label>
+                                    <label class="control-label col-sm-12" for="purchased_discount">Diskon Satuan (%):</label>
                                     <div class="col-sm-12">
                                         <input required onkeyup="tagihan()" type="number" autofocus class="form-control" id="purchased_discount" name="purchased_discount" placeholder="" value="<?= $purchased_discount; ?>">
                                     </div>
@@ -216,7 +216,7 @@
                                         <th>Produk</th>
                                         <th>Qty</th>
                                         <th>Nominal</th>
-                                        <th>Diskon</th>
+                                        <th>Diskon(%)</th>
                                         <th>Total</th>
                                         <?php if ($this->request->getGET("purchase_ppn") == 0) { ?>
                                             <th>PPN</th>
