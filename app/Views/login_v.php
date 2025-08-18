@@ -74,7 +74,7 @@
 
 <body>
     <!--Toast-->
-    <div class="toast" data-autohide="false">
+    <!-- <div class="toast" data-autohide="false">
         <div class="toast-header">
             <strong class="mr-auto text-primary">Alert</strong>
             <button type="button" class="ml-2 mb-1 close" data-dismiss="toast">&times;</button>
@@ -82,7 +82,7 @@
         <div class="toast-body">
             asdfaf
         </div>
-    </div>
+    </div> -->
     <div class="limiter">
         <div class="container-login100">
             <div class="wrap-login100">
