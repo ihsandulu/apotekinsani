@@ -213,7 +213,7 @@
                                             $hargasetelahppn=$usr->stlhppn;
                                             $usr->nominal=$hargasetelahppn;
                                         }else{
-                                            $hargasetelahppn=$usr->nominal+($usr->nominal*$usr->purchase_ppn/100);
+                                            $hargasetelahppn=round($usr->nominal+($usr->nominal*$usr->purchase_ppn/100));
                                         }
                                         $payment=$this->db
                                         ->table("payment")
@@ -230,6 +230,7 @@
                                         <tr style="<?=$bg;?>">    
                                             <td style="padding-left:0px; padding-right:0px;">                                                    
                                                 <?php 
+                                                
                                                 if (
                                                     (
                                                         isset(session()->get("position_administrator")[0][0]) 
