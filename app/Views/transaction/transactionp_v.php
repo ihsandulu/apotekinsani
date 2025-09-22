@@ -166,7 +166,9 @@
                                     <?php
                                     $builder = $this->db
                                         ->table("transaction")
+                                        ->select("*,GROUP_CONCAT(cicilan.cicilan_nominal SEPARATOR ',') as cicilan_list")
                                         ->join("store", "store.store_id=transaction.store_id", "left")
+                                        ->join("cicilan", "cicilan.transaction_id=transaction.transaction_id", "left")
                                         ->join("user", "user.user_id=transaction.cashier_id", "left")
                                         ->where("transaction.store_id", session()->get("store_id"));
                                     if (isset($_GET["from"]) && $_GET["from"] != "") {
@@ -180,7 +182,8 @@
                                         $builder->where("transaction.transaction_date", date("Y-m-d"));
                                     }
                                     $usr = $builder
-                                        ->orderBy("transaction_id", "ASC")
+                                        ->groupBy("transaction.transaction_id")
+                                        ->orderBy("transaction.transaction_id", "ASC")
                                         ->get();
                                     // echo $this->db->getLastquery();
                                     $no = 1;
@@ -292,7 +295,7 @@
                                                     <?php } ?>
                                                 <?php } ?>
 
-                                                
+
 
                                             </td>
                                             <td><?= $usr->transaction_date; ?></td>
@@ -322,8 +325,20 @@
                                                 (<span class="text-success">TT:</span> <?= number_format($usr->transaction_bill, 0, ".", ",");
                                                                                         $tbill += $usr->transaction_bill; ?>)
                                             </td>
-                                            <td><?= number_format($usr->transaction_pay, 0, ".", ",");
-                                                $tpay += $usr->transaction_pay; ?></td>
+                                            <td>
+                                                <?php
+                                                if ($usr->cicilan_list != "") {
+                                                    $cicilanArr = explode(",", $usr->cicilan_list);
+                                                    $list = [];
+                                                    foreach ($cicilanArr as $i => $nominal) {
+                                                        $list[] = "c" . ($i + 1) . "=" . number_format($nominal, 0, ',', '.');
+                                                    }
+                                                    echo implode("<br/>", $list);
+                                                } else {
+                                                    echo number_format($usr->transaction_pay, 0, ".", ",");
+                                                } ?>
+                                                <?php $tpay += $usr->transaction_pay; ?>
+                                            </td>
                                             <td><?= number_format($usr->transaction_change, 0, ".", ",");
                                                 $tchange += $usr->transaction_change; ?></td>
                                             <td>

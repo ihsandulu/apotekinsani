@@ -114,6 +114,7 @@
                                     <tr>
                                         <th>No.</th>
                                         <th>Date</th>
+                                        <th>Cicilan Ke</th>
                                         <th>Nominal</th>
                                     </tr>
                                 </thead>
@@ -129,7 +130,7 @@
                                         $builder->where("cicilan.cicilan_date <=", $this->request->getGet("to"));
                                     }
                                     $usr = $builder
-                                        ->orderBy("cicilan_id", "DESC")
+                                        ->orderBy("cicilan_id", "ASC")
                                         ->get();
                                     //echo $this->db->getLastquery();
                                     $no = 1;
@@ -180,6 +181,7 @@
                                                 </td>
                                             <?php } ?>
                                             <td><?= $usr->cicilan_date; ?></td>
+                                            <td>Cicilan <?= $no++; ?></td>
                                             <td><?= number_format($usr->cicilan_nominal, 0, ".", ","); ?></td>
                                         </tr>
                                     <?php } ?>
