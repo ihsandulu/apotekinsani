@@ -42,14 +42,14 @@
                                     )
                                 ) ||
                                 (
-                                    isset(session()->get("halaman")['18']['act_create'])
-                                    && session()->get("halaman")['18']['act_create'] == "1"
+                                    isset(session()->get("halaman")['29']['act_create'])
+                                    && session()->get("halaman")['29']['act_create'] == "1"
                                 )
                             ) { ?>
                                 <form method="post" class="col-md-2">
                                     <h1 class="page-header col-md-12">
                                         <button name="new" class="btn btn-info btn-block btn-lg" value="OK" style="">New</button>
-                                        <input type="hidden" name="purchase_id" />
+                                        <input type="hidden" name="transaction_id" />
                                     </h1>
                                 </form>
                             <?php } ?>
@@ -59,72 +59,54 @@
                         <div class="">
                             <?php if (isset($_POST['edit'])) {
                                 $namabutton = 'name="change"';
-                                $judul = "Update Pembelian";
+                                $judul = "Update Penjualan";
                             } else {
                                 $namabutton = 'name="create"';
-                                $judul = "Tambah Pembelian";
+                                $judul = "Tambah Penjualan";
                             } ?>
                             <div class="lead">
                                 <h3><?= $judul; ?></h3>
                             </div>
                             <form class="form-horizontal" method="post" enctype="multipart/form-data">
                                 <div class="form-group">
-                                    <label class="control-label col-sm-2" for="purchase_date">Tgl Pembelian:</label>
+                                    <label class="control-label col-sm-2" for="transaction_date">Tgl Penjualan:</label>
                                     <div class="col-sm-10">
-                                        <input required type="date" autofocus class="form-control" id="purchase_date" name="purchase_date" placeholder="" value="<?= $purchase_date; ?>">
+                                        <input required type="date" autofocus class="form-control" id="transaction_date" name="transaction_date" placeholder="" value="<?= $transaction_date; ?>">
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="control-label col-sm-2" for="purchase_indate">Tgl Datang:</label>
-                                    <div class="col-sm-10">
-                                        <input required type="date" autofocus class="form-control" id="purchase_indate" name="purchase_indate" placeholder="" value="<?= $purchase_indate; ?>">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label col-sm-2" for="purchase_duedate">Jatuh Tempo:</label>
-                                    <div class="col-sm-10">
-                                        <input required type="date" autofocus class="form-control" id="purchase_duedate" name="purchase_duedate" placeholder="" value="<?= $purchase_duedate; ?>">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label col-sm-2" for="purchase_no">Nomor Pembelian/Faktur:</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" autofocus class="form-control" id="purchase_no" name="purchase_no" placeholder="Penomoran akan otomatis jika dikosongkan" value="<?= $purchase_no; ?>">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label col-sm-2" for="supplier_id">Supplier:</label>
+                                    <label class="control-label col-sm-2" for="member_id">Dikeluarkan Untuk:</label>
                                     <div class="col-sm-10">
                                         <?php
-                                        $supplier = $this->db->table("supplier")
+                                        $member = $this->db->table("member")
                                             ->where("store_id", session()->get("store_id"))
-                                            ->orderBy("supplier_name", "ASC")
+                                            ->orderBy("member_name", "ASC")
                                             ->get();
                                         //echo $this->db->getLastQuery();
                                         ?>
-                                        <select required class="form-control select" id="supplier_id" name="supplier_id">
-                                            <option value="" <?= ($supplier_id == "") ? "selected" : ""; ?>>Pilih Supplier</option>
+                                        <select class="form-control select" id="member_id" name="Member_id">
+                                            <option value="" <?= ($member_id == "") ? "selected" : ""; ?>>Pilih Member</option>
                                             <?php
-                                            foreach ($supplier->getResult() as $supplier) { ?>
-                                                <option value="<?= $supplier->supplier_id; ?>" <?= ($supplier_id == $supplier->supplier_id) ? "selected" : ""; ?>><?= $supplier->supplier_name; ?></option>
+                                            foreach ($member->getResult() as $member) { ?>
+                                                <option value="<?= $member->member_id; ?>" <?= ($member_id == $member->member_id) ? "selected" : ""; ?>><?= $member->member_name; ?></option>
                                             <?php } ?>
                                         </select>
-
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="control-label col-sm-12" for="purchase_ppn">PPN(%):</label>
-                                    <div class="col-sm-12">
-                                        <input onkeyup="tagihan()" type="number" autofocus class="form-control" id="purchase_ppn" name="purchase_ppn" placeholder="" value="<?= $purchase_ppn; ?>">
+                                    <label class="control-label col-sm-2" for="transaction_resep">Biaya Tambahan:</label>
+                                    <div class="col-sm-10">
+                                        <input required type="resep" autofocus class="form-control" id="transaction_resep" name="transaction_resep" placeholder="" value="<?= $transaction_resep; ?>">
                                     </div>
                                 </div>
 
 
-                                <input type="hidden" name="purchase_id" value="<?= $purchase_id; ?>" />
+
+                                <input type="hidden" name="transaction_id" value="<?= $transaction_id; ?>" />
                                 <div class="form-group">
                                     <div class="col-sm-offset-2 col-sm-10">
                                         <button type="submit" id="submit" class="btn btn-primary col-md-5" <?= $namabutton; ?> value="OK">Submit</button>
-                                        <button type="button" class="btn btn-warning col-md-offset-1 col-md-5" onClick="location.href='<?= base_url("purchase"); ?>'">Back</button>
+                                        <button type="button" class="btn btn-warning col-md-offset-1 col-md-5" onClick="location.href='<?= base_url("transactionp"); ?>'">Back</button>
                                     </div>
                                 </div>
                             </form>
@@ -163,88 +145,83 @@
                         <?php } ?>
 
                         <div class="table-responsive m-t-40">
-                            <table id="example23" class="display nowrap " cellspacing="0" width="100%" border="1">
+                            <table id="example231" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
                                 <!-- <table id="dataTable" class="table table-condensed table-hover w-auto dtable"> -->
                                 <thead class="">
                                     <tr>
-                                        <?php //if (!isset($_GET["report"])) { 
-                                        ?>
-                                        <th>Aksi.</th>
-                                        <?php //}
-                                        ?>
                                         <th>No.</th>
                                         <th>Tanggal</th>
                                         <th>Toko</th>
-                                        <th>Supplier</th>
-                                        <th>No. Pembelian</th>
+                                        <th>No. Transaksi</th>
+                                        <th>Shift</th>
                                         <th>Kasir</th>
                                         <th>Produk</th>
-                                        <th>Nominal</th>
-                                        <th>PPN</th>
-                                        <th>Total</th>
+                                        <th>Tagihan</th>
+                                        <th>Bayar</th>
+                                        <th>Kembalian</th>
+                                        <th>Status</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php
-                                    $currentURL = current_url();
-                                    $currentURL = str_replace('/index.php', '', $currentURL);
-                                    $params   = $_SERVER['QUERY_STRING'];
-                                    $fullURL = urlencode($currentURL . '?' . $params);
                                     $builder = $this->db
-                                        ->table("purchase")
-                                        ->join("(SELECT purchase_id AS purchaseid,SUM(purchased_price)AS nominal,SUM(purchased_bill)AS stlhppn FROM purchased GROUP BY purchase_id)purchased", "purchased.purchaseid=purchase.purchase_id", "left")
-                                        ->join("supplier", "supplier.supplier_id=purchase.supplier_id", "left")
-                                        ->join("store", "store.store_id=purchase.store_id", "left")
-                                        ->join("user", "user.user_id=purchase.cashier_id", "left")
-                                        ->where("purchase.store_id", session()->get("store_id"));
+                                        ->table("transaction")
+                                        ->join("store", "store.store_id=transaction.store_id", "left")
+                                        ->join("user", "user.user_id=transaction.cashier_id", "left")
+                                        ->where("transaction.store_id", session()->get("store_id"));
                                     if (isset($_GET["from"]) && $_GET["from"] != "") {
-                                        $builder->where("purchase.purchase_date >=", $this->request->getGet("from"));
+                                        $builder->where("transaction.transaction_date >=", $this->request->getGet("from"));
                                     } else {
-                                        $builder->where("purchase.purchase_date", date("Y-m-d"));
+                                        $builder->where("transaction.transaction_date", date("Y-m-d"));
                                     }
-
                                     if (isset($_GET["to"]) && $_GET["to"] != "") {
-                                        $builder->where("purchase.purchase_date <=", $this->request->getGet("to"));
+                                        $builder->where("transaction.transaction_date <=", $this->request->getGet("to"));
                                     } else {
-                                        $builder->where("purchase.purchase_date", date("Y-m-d"));
+                                        $builder->where("transaction.transaction_date", date("Y-m-d"));
                                     }
                                     $usr = $builder
-                                        ->orderBy("purchase.purchase_id", "ASC")
+                                        ->orderBy("transaction_id", "ASC")
                                         ->get();
-                                    // echo $this->db->getLastquery();die;
+                                    // echo $this->db->getLastquery();
                                     $no = 1;
-                                    $thargasetelahppn = 0;
-                                    $tnominal = 0;
+                                    $tbill = 0;
+                                    $tpay = 0;
+                                    $tchange = 0;
                                     foreach ($usr->getResult() as $usr) {
-                                        if ($usr->nominal > 0) {
-                                            $usr->nominal = $usr->nominal;
-                                        } else {
-                                            $usr->nominal = 0;
+                                        if ($usr->transaction_bill == null) {
+                                            $usr->transaction_bill = 0;
                                         }
-                                        if ($usr->purchase_ppn == 0) {
-                                            $hargasetelahppn = $usr->stlhppn;
-                                            $usr->nominal = $hargasetelahppn;
-                                        } else {
-                                            $hargasetelahppn = round($usr->nominal + ($usr->nominal * $usr->purchase_ppn / 100));
+                                        if ($usr->transaction_pay == null) {
+                                            $usr->transaction_pay = 0;
                                         }
-                                        $payment = $this->db
-                                            ->table("payment")
-                                            ->select("SUM(payment_nominal)AS bayar")
-                                            ->where("purchase_id", $usr->purchase_id)
-                                            ->get();
-                                        $bayar = 0;
-                                        foreach ($payment->getResult() as $payment) {
-                                            $bayar = $payment->bayar;
-                                        }
-                                        $sisa = $hargasetelahppn - $bayar;
-                                        if ($sisa == 0) {
-                                            $bg = "background-color: greenyellow;";
-                                        } else {
-                                            $bg = "bg-color:white;";
+                                        if ($usr->transaction_change == null) {
+                                            $usr->transaction_change = 0;
                                         }
                                     ?>
-                                        <tr style="<?= $bg; ?>">
-                                            <td style="padding-left:0px; padding-right:0px;">
+                                        <tr>
+                                            <td>
+                                                <?php
+                                                if (
+                                                    (
+                                                        isset(session()->get("position_administrator")[0][0])
+                                                        && (
+                                                            session()->get("position_administrator") == "1"
+                                                            || session()->get("position_administrator") == "2"
+                                                        )
+                                                    ) ||
+                                                    (
+                                                        isset(session()->get("halaman")['30']['act_read'])
+                                                        && session()->get("halaman")['30']['act_read'] == "1"
+                                                    )
+                                                ) { ?>
+
+                                                    <?php if (isset($_GET["report"])) {
+                                                        $report = "&report=OK";
+                                                    } else {
+                                                        $report = "";
+                                                    } ?>
+                                                    <a href="<?= base_url("transactionpb?transaction_id=" . $usr->transaction_id . "&member_id=" . $usr->member_id); ?>" class="btn btn-xs btn-success"><span class="fa fa-money"></span></a>
+                                                <?php } ?>
                                                 <?php
 
                                                 if (
@@ -256,8 +233,8 @@
                                                         )
                                                     ) ||
                                                     (
-                                                        isset(session()->get("halaman")['18']['act_read'])
-                                                        && session()->get("halaman")['18']['act_read'] == "1"
+                                                        isset(session()->get("halaman")['30']['act_read'])
+                                                        && session()->get("halaman")['30']['act_read'] == "1"
                                                     )
                                                 ) { ?>
 
@@ -266,8 +243,10 @@
                                                     } else {
                                                         $report = "";
                                                     } ?>
-                                                    <a href="<?= base_url("purchased?supplier_id=" . $usr->supplier_id . "&supplier_name=" . $usr->supplier_name . "&purchase_id=" . $usr->purchase_id . "&purchase_no=" . $usr->purchase_no . "&purchase_ppn=" . $usr->purchase_ppn . $report); ?>" class="btn btn-xs btn-info"><span class="fa fa-cubes"></span></a>
+                                                    <a href="<?= base_url("transactionpd?transaction_id=" . $usr->transaction_id . "&member_id=" . $usr->member_id); ?>" class="btn btn-xs btn-info"><span class="fa fa-cubes"></span></a>
                                                 <?php } ?>
+
+
 
                                                 <?php if (!isset($_GET["report"])) { ?>
                                                     <?php
@@ -280,32 +259,13 @@
                                                             )
                                                         ) ||
                                                         (
-                                                            isset(session()->get("halaman")['18']['act_create'])
-                                                            && session()->get("halaman")['18']['act_create'] == "1"
-                                                        )
-                                                    ) { ?>
-                                                        <a href="<?= base_url("payment?purchase_id=" . $usr->purchase_id . "&purchase_no=" . $usr->purchase_no . "&kas_nominal=" . $hargasetelahppn . "&supplier_id=" . $usr->supplier_id . "&url=" . $fullURL); ?>" class="btn btn-xs btn-success"><span class="fa fa-money"></span></a>
-                                                    <?php } ?>
-                                                <?php } ?>
-
-                                                <?php if (!isset($_GET["report"])) { ?>
-                                                    <?php
-                                                    if (
-                                                        (
-                                                            isset(session()->get("position_administrator")[0][0])
-                                                            && (
-                                                                session()->get("position_administrator") == "1"
-                                                                || session()->get("position_administrator") == "2"
-                                                            )
-                                                        ) ||
-                                                        (
-                                                            isset(session()->get("halaman")['18']['act_update'])
-                                                            && session()->get("halaman")['18']['act_update'] == "1"
+                                                            isset(session()->get("halaman")['30']['act_update'])
+                                                            && session()->get("halaman")['30']['act_update'] == "1"
                                                         )
                                                     ) { ?>
                                                         <form method="post" class="btn-action" style="">
                                                             <button class="btn btn-sm btn-warning " name="edit" value="OK"><span class="fa fa-edit" style="color:white;"></span> </button>
-                                                            <input type="hidden" name="purchase_id" value="<?= $usr->purchase_id; ?>" />
+                                                            <input type="hidden" name="transaction_id" value="<?= $usr->transaction_id; ?>" />
                                                         </form>
                                                     <?php } ?>
                                                 <?php } ?>
@@ -321,73 +281,71 @@
                                                             )
                                                         ) ||
                                                         (
-                                                            isset(session()->get("halaman")['18']['act_delete'])
-                                                            && session()->get("halaman")['18']['act_delete'] == "1"
+                                                            isset(session()->get("halaman")['30']['act_delete'])
+                                                            && session()->get("halaman")['30']['act_delete'] == "1"
                                                         )
                                                     ) { ?>
                                                         <form method="post" class="btn-action" style="">
                                                             <button class="btn btn-sm btn-danger delete" onclick="return confirm(' you want to delete?');" name="delete" value="OK"><span class="fa fa-close" style="color:white;"></span> </button>
-                                                            <input type="hidden" name="purchase_id" value="<?= $usr->purchase_id; ?>" />
+                                                            <input type="hidden" name="transaction_id" value="<?= $usr->transaction_id; ?>" />
                                                         </form>
                                                     <?php } ?>
                                                 <?php } ?>
+
+                                                
+
                                             </td>
-                                            <td><?= $no++; ?></td>
-                                            <td>
-                                                <small>
-                                                    P: <?= $usr->purchase_date; ?><br />
-                                                    I: <?= $usr->purchase_indate; ?><br />
-                                                    D: <?= $usr->purchase_duedate; ?>
-                                                </small>
-                                            </td>
+                                            <td><?= $usr->transaction_date; ?></td>
                                             <td><?= $usr->store_name; ?></td>
-                                            <td><?= $usr->supplier_name; ?></td>
-                                            <td><?= $usr->purchase_no; ?></td>
+                                            <td><?= $usr->transaction_no; ?></td>
+                                            <td><?= $usr->transaction_shift; ?></td>
                                             <td><?= $usr->user_name; ?></td>
                                             <td>
-                                                <?php $purchased = $this->db
-                                                    ->table("purchased")
-                                                    ->join("product", "product.product_id=purchased.product_id", "left")
-                                                    ->where("purchase_id", $usr->purchase_id)
+                                                <?php $product = $this->db->table("transactiond")
+                                                    ->join("product", "product.product_id=transactiond.product_id", "left")
+                                                    ->where("transaction_id", $usr->transaction_id)
                                                     ->get();
-
-                                                foreach ($purchased->getResult() as $purchased) {
-                                                    echo $purchased->product_name . " (" . $purchased->purchased_qty . "), ";
+                                                foreach ($product->getResult() as $product) {
+                                                    echo $product->product_name . " (" . $product->transactiond_qty . "), ";
                                                 }
                                                 ?>
                                             </td>
-                                            <td><?= number_format(floatval($usr->nominal), 0, ".", ",");
-                                                $tnominal += $usr->nominal; ?></td>
-                                            <td><?= $usr->purchase_ppn; ?> %</td>
                                             <td>
-                                                T: <?= number_format(floatval($hargasetelahppn), 0, ".", ",");
-                                                    $thargasetelahppn += $hargasetelahppn; ?>
-                                                <?php if ($bayar > 0) { ?>
-                                                    <a href="<?= base_url("payment?purchase_id=" . $usr->purchase_id . "&purchase_no=" . $usr->purchase_no . "&kas_nominal=" . $hargasetelahppn . "&supplier_id=" . $usr->supplier_id . "&url=" . $fullURL); ?>">
-                                                        <br /><small>(P: <?= number_format($bayar, 0, ".", ","); ?>)</small>
-                                                        <br /><small>(S: <?= number_format($sisa, 0, ".", ","); ?>)</small>
-                                                    </a>
+                                                <?php if ($usr->transaction_discount > 0) { ?>
+                                                    (<span class="text-danger">T:</span> <?= number_format($usr->transaction_dbill, 0, ".", ","); ?>)<br />
+                                                    (<span class="text-warning">D:</span> <?= number_format($usr->transaction_discount, 0, ".", ","); ?>)<br />
                                                 <?php } ?>
+                                                <?php if ($usr->transaction_resep > 0) { ?>
+                                                    (<span class="text-success">R:</span> <?= number_format($usr->transaction_resep, 0, ".", ",");
+                                                                                            $tbill += $usr->transaction_resep; ?>)<br />
+                                                <?php } ?>
+                                                (<span class="text-success">TT:</span> <?= number_format($usr->transaction_bill, 0, ".", ",");
+                                                                                        $tbill += $usr->transaction_bill; ?>)
+                                            </td>
+                                            <td><?= number_format($usr->transaction_pay, 0, ".", ",");
+                                                $tpay += $usr->transaction_pay; ?></td>
+                                            <td><?= number_format($usr->transaction_change, 0, ".", ",");
+                                                $tchange += $usr->transaction_change; ?></td>
+                                            <td>
+                                                <?php
+                                                $status = array("sukses", "batal", "pending");
+                                                echo $status[$usr->transaction_status]; ?>
                                             </td>
                                         </tr>
                                     <?php } ?>
 
                                     <tr>
-                                        <?php //if (!isset($_GET["report"])) { 
-                                        ?>
-                                        <td></td>
-                                        <?php //}
-                                        ?>
-                                        <td></td>
+                                        <td><?= $no; ?></td>
                                         <td></td>
                                         <td></td>
                                         <td></td>
                                         <td></td>
                                         <td></td>
                                         <td class="text-right">Total&nbsp;</td>
-                                        <td><?= number_format($tnominal, 0, ".", ","); ?></td>
+                                        <td><?= number_format($tbill, 0, ".", ","); ?></td>
+                                        <td><?= number_format($tpay, 0, ".", ","); ?></td>
+                                        <td><?= number_format($tchange, 0, ".", ","); ?></td>
                                         <td></td>
-                                        <td><?= number_format($thargasetelahppn, 0, ".", ","); ?></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -400,7 +358,7 @@
 </div>
 <script>
     $('.select').select2();
-    var title = "<?= (isset($_GET["report"])) ? "Laporan" : ""; ?> Pembelian";
+    var title = "<?= (isset($_GET["report"])) ? "Laporan" : ""; ?> Penjualan";
     $("title").text(title);
     $(".card-title").text(title);
     $("#page-title").text(title);

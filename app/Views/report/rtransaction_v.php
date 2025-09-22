@@ -72,6 +72,7 @@
                                     ->table("transaction")
                                     ->join("store", "store.store_id=transaction.store_id", "left")
                                     ->join("user", "user.user_id=transaction.cashier_id", "left")
+                                    ->where("transaction.transaction_bill > 0")
                                     ->where("transaction.store_id", session()->get("store_id"));
                                 if (isset($_GET["from"]) && $_GET["from"] != "") {
                                     $builder->where("transaction.transaction_date >=", $this->request->getGet("from"));
