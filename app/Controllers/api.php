@@ -37,6 +37,39 @@ class api extends baseController
         echo $product_id;
     }
 
+    public function ilembur()
+    {
+        $lembur_jam = $this->request->getGET("lembur_jam");
+        $store = $this->db->table('store')->where("store_id", $this->request->getGET("store_id"))->get();
+        $lemburupah = 0;
+        foreach ($store->getResult() as $row) {
+            $lemburupah = $lembur_jam * $row->store_lemburupah;
+        }
+        echo $lemburupah;
+    }
+
+    public function iabsen()
+    {
+        $absen_status = $this->request->getGET("absen_status");
+        $store = $this->db->table('store')->where("store_id", $this->request->getGET("store_id"))->get();
+        $potonganabsen = 0;
+        foreach ($store->getResult() as $row) {
+            if ($absen_status == 1) {
+                $potonganabsen = $row->store_psakit;
+            }
+            if ($absen_status == 2) {
+                $potonganabsen = $row->store_pizin;
+            }
+            if ($absen_status == 3) {
+                $potonganabsen = $row->store_pcuti;
+            }
+            if ($absen_status == 4) {
+                $potonganabsen = $row->store_palpha;
+            }
+        }
+        echo $potonganabsen;
+    }
+
     public function compressFolder()
     {
         error_reporting(E_ALL);

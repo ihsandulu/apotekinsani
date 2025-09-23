@@ -79,6 +79,9 @@ $routes->add('/transactionnond', 'transaction\transactionnond::index');
 $routes->add('/transactionp', 'transaction\transactionp::index');
 $routes->add('/transactionpd', 'transaction\transactionpd::index');
 $routes->add('/transactionpb', 'transaction\transactionpb::index');
+$routes->add('/absen', 'transaction\absen::index');
+$routes->add('/lembur', 'transaction\lembur::index');
+$routes->add('/payroll', 'transaction\payroll::index');
 
 $routes->add('/msupplier', 'master\msupplier::index');
 $routes->add('/mproductbuy', 'master\mproduct::buy');

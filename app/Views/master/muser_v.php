@@ -39,11 +39,11 @@
                             <?php if (isset($_POST['edit'])) {
                                 $namabutton = 'name="change"';
                                 $judul = "Update User";
-                                $ketpassword="Kosongkan jika tidak ingin merubah password!";
+                                $ketpassword = "Kosongkan jika tidak ingin merubah password!";
                             } else {
                                 $namabutton = 'name="create"';
                                 $judul = "Tambah User";
-                                $ketpassword="Jangan dikosongkan!";
+                                $ketpassword = "Jangan dikosongkan!";
                             } ?>
                             <div class="lead">
                                 <h3><?= $judul; ?></h3>
@@ -55,8 +55,8 @@
                                     <div class="col-sm-10">
                                         <?php
                                         $position = $this->db->table("position")
-                                            ->where("position_administrator!=","1")
-                                            ->where("store_id",session()->get("store_id"))
+                                            ->where("position_administrator!=", "1")
+                                            ->where("store_id", session()->get("store_id"))
                                             ->orderBy("position_name", "ASC")
                                             ->get();
                                         //echo $this->db->getLastQuery();
@@ -72,7 +72,7 @@
                                     </div>
                                 </div>
 
-                               
+
                                 <div class="form-group">
                                     <label class="control-label col-sm-12" for="user_name">Username:</label>
                                     <div class="col-sm-10">
@@ -82,11 +82,11 @@
                                 </div>
 
 
-                               
+
                                 <div class="form-group">
                                     <label class="control-label col-sm-12" for="user_password">Password:</label>
                                     <div class="col-sm-10">
-                                        <input type="text" autofocus class="form-control" id="user_password" name="user_password" placeholder="<?=$ketpassword;?>" value="">
+                                        <input type="text" autofocus class="form-control" id="user_password" name="user_password" placeholder="<?= $ketpassword; ?>" value="">
                                     </div>
                                 </div>
 
@@ -120,7 +120,16 @@
 
                                     </div>
                                 </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-12" for="user_upah">Jenis Upah:</label>
+                                    <div class="col-sm-10">
+                                        <select required class="form-control select" id="user_upah" name="user_upah">
+                                            <option value="0" <?= ($user_upah == "0") ? "selected" : ""; ?>>Bulanan</option>
+                                            <option value="1" <?= ($user_upah == "1") ? "selected" : ""; ?>>Harian</option>
+                                        </select>
 
+                                    </div>
+                                </div>
 
 
                                 <input type="hidden" name="user_id" value="<?= $user_id; ?>" />

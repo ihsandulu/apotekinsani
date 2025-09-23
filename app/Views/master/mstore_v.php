@@ -124,6 +124,60 @@
                                     </div>
                                 </div>
 
+                                <div class="form-group">
+                                    <label class="control-label col-sm-12" for="store_upahharian">Upah Harian:</label>
+                                    <div class="col-sm-10">
+                                        <input class="form-control" id="store_upahharian" name="store_upahharian" placeholder="Upah Harian" value="<?= $store_upahharian; ?>"/>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-sm-12" for="store_upahbulanan">Upah Bulanan:</label>
+                                    <div class="col-sm-10">
+                                        <input class="form-control" id="store_upahbulanan" name="store_upahbulanan" placeholder="Upah Harian" value="<?= $store_upahbulanan; ?>"/>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-sm-12" for="store_lemburupah">Lembur:</label>
+                                    <div class="col-sm-10">
+                                        <input class="form-control" id="store_lemburupah" name="store_lemburupah" placeholder="Upah Harian" value="<?= $store_lemburupah; ?>"/>
+                                    </div>
+                                </div>
+
+                                
+
+                                <div class="form-group">
+                                    <label class="control-label col-sm-12" for="store_psakit">Potongan Sakit:</label>
+                                    <div class="col-sm-10">
+                                        <input class="form-control" id="store_psakit" name="store_psakit" placeholder="Upah Harian" value="<?= $store_psakit; ?>"/>
+                                    </div>
+                                </div>
+                                
+
+                                <div class="form-group">
+                                    <label class="control-label col-sm-12" for="store_pizin">Potongan Izin:</label>
+                                    <div class="col-sm-10">
+                                        <input class="form-control" id="store_pizin" name="store_pizin" placeholder="Upah Harian" value="<?= $store_pizin; ?>"/>
+                                    </div>
+                                </div>
+                                
+
+                                <div class="form-group">
+                                    <label class="control-label col-sm-12" for="store_pcuti">Potongan Cuti:</label>
+                                    <div class="col-sm-10">
+                                        <input class="form-control" id="store_pcuti" name="store_pcuti" placeholder="Upah Harian" value="<?= $store_pcuti; ?>"/>
+                                    </div>
+                                </div>
+                                
+
+                                <div class="form-group">
+                                    <label class="control-label col-sm-12" for="store_palpha">Potongan Alpha:</label>
+                                    <div class="col-sm-10">
+                                        <input class="form-control" id="store_palpha" name="store_palpha" placeholder="Upah Harian" value="<?= $store_palpha; ?>"/>
+                                    </div>
+                                </div>
+
                                 <input type="hidden" name="store_id" value="<?= $store_id; ?>" />
                                 <div class="form-group">
                                     <div class="col-sm-offset-2 col-sm-10">
