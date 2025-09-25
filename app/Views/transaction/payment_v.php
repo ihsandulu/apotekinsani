@@ -1,6 +1,17 @@
 <?php echo $this->include("template/header_v"); ?>
 <?php 
 $tnominal=0;
+
+if (isset($_GET["from"])) {
+    $from = $this->request->getGet("from");
+} else {
+    $from = date("Y-m-d");
+}
+if (isset($_GET["to"])) {
+    $to = $this->request->getGet("to");
+} else {
+    $to = date("Y-m-d");
+}
 ?>
 <div class='container-fluid'>
     <div class='row'>
@@ -32,6 +43,8 @@ $tnominal=0;
                                     <h1 class="page-header col-md-12">
                                         <button class="btn btn-warning btn-block btn-lg" value="OK" style="">Back</button>
                                     </h1>
+                                    <input name="from" value="<?=$from;?>" type="hidden" />
+                                    <input name="to" value="<?=$to;?>" type="hidden" />
                                 </form>
                             <?php } ?>
                             <?php 
@@ -108,7 +121,7 @@ $tnominal=0;
                                 <div class="form-group">
                                     <div class="col-sm-offset-2 col-sm-10">
                                         <button type="submit" id="submit" class="btn btn-primary col-md-5" <?= $namabutton; ?> value="OK">Submit</button>
-                                        <button class="btn btn-warning col-md-offset-1 col-md-5" onClick="location.href=<?= site_url("payment"); ?>">Back</button>
+                                        <button class="btn btn-warning col-md-offset-1 col-md-5" onClick="location.href=<?= site_url("payment?from=".$from."&to=".$to); ?>">Back</button>
                                     </div>
                                 </div>
                             </form>

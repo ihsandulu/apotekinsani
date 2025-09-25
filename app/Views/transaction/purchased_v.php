@@ -1,4 +1,15 @@
-<?php echo $this->include("template/header_v"); ?>
+<?php echo $this->include("template/header_v"); 
+if (isset($_GET["from"])) {
+    $from = $this->request->getGet("from");
+} else {
+    $from = date("Y-m-d");
+}
+if (isset($_GET["to"])) {
+    $to = $this->request->getGet("to");
+} else {
+    $to = date("Y-m-d");
+}
+?>
 
 <div class='container-fluid'>
     <div class='row'>
@@ -26,6 +37,8 @@
                                 <?php if (isset($_GET["report"])) { ?>
                                     <input name="report" value="OK" type="hidden" />
                                 <?php } ?>
+                                    <input name="from" value="<?=$from;?>" type="hidden" />
+                                    <input name="to" value="<?=$to;?>" type="hidden" />
                             </h1>
                         </form>
                         <?php if (!isset($_GET["report"])) { ?>
@@ -186,7 +199,7 @@
                                 <div class="form-group">
                                     <div class="col-sm-offset-2 col-sm-10">
                                         <button type="submit" id="submit" class="btn btn-primary col-md-5" <?= $namabutton; ?> value="OK">Submit</button>
-                                        <button class="btn btn-warning col-md-offset-1 col-md-5" onClick="location.href=<?= site_url("purchased"); ?>">Back</button>
+                                        <button class="btn btn-warning col-md-offset-1 col-md-5" onClick="location.href=<?= site_url("purchased?from=".$from."&to=".$to); ?>">Back</button>
                                     </div>
                                 </div>
                             </form>
@@ -234,10 +247,10 @@
                                         ->where("purchased.store_id", session()->get("store_id"))
                                         ->where("purchased.purchase_id", $this->request->getGet("purchase_id"));
                                     if (isset($_GET["from"]) && $_GET["from"] != "") {
-                                        $builder->where("purchased.purchased_date >=", $this->request->getGet("from"));
+                                        $builder->where("purchase.purchase_date >=", $this->request->getGet("from"));
                                     }
                                     if (isset($_GET["to"]) && $_GET["to"] != "") {
-                                        $builder->where("purchased.purchased_date <=", $this->request->getGet("to"));
+                                        $builder->where("purchase.purchase_date <=", $this->request->getGet("to"));
                                     }
                                     $usr = $builder
                                         ->orderBy("purchased_id", "DESC")
