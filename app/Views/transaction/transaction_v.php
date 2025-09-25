@@ -269,7 +269,8 @@
                                             <?php } ?>
                                         </select>
                                     </div>
-                                    <button onclick="pelunasan();" type="button" class="btn btn-primary btn-block">Submit</button>
+                                    <button onclick="pelunasan(0);" type="button" class="btn btn-primary btn-block">Submit</button>
+                                    <button onclick="pelunasan(1);" type="button" class="btn btn-warning btn-block">Submit & Print</button>
                                 </div>
                                 <div>Pembayaran : Rp. <span class="dibayar"></span></div>
                                 <div>Kembalian : Rp. <span class="kembalian"></span></div>
@@ -653,7 +654,7 @@
                         $("#tagihan").val(dtagihan - diskon + tresep);
                     }
 
-                    function pelunasan() {
+                    function pelunasan(tipe) {
                         let account_id = $("#account_id").val();
                         let transaction_id = $("#transaction_id").val();
                         let transaction_no = $("#transaction_no").val();
@@ -679,7 +680,9 @@
                             })
                             .done(function(data) {
                                 updatestatus(transaction_id, data);
-                                print(transaction_id);
+                                if (tipe == 1) {
+                                    print(transaction_id);
+                                }
                                 $("#bayar").modal('hide');
                                 cekstatus(transaction_id);
                                 fokus('barcode');
@@ -1070,7 +1073,7 @@
                                     insertnotabarcode(product_batch);
                                     $("#inputbarcode").val("");
                                 } else if (ifokus == "bayar") {
-                                    pelunasan();
+                                    pelunasan(0);
                                 } else if (ifokus == "modalawal") {
                                     kasmodal('masuk');
                                 } else if (ifokus == "modalakhir") {
