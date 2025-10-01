@@ -65,7 +65,7 @@
                                 <div class="form-group">
                                     <label class="control-label col-sm-2" for="stockopname_datetime">Tanggal:</label>
                                     <div class="col-sm-10">
-                                        <input required type="datetime-local" autofocus class="form-control" id="stockopname_datetime" name="stockopname_datetime" placeholder="" value="<?= $stockopname_datetime; ?>">
+                                        <input required type="datetime-local" class="form-control" id="stockopname_datetime" name="stockopname_datetime" placeholder="" value="<?= $stockopname_datetime; ?>">
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -126,7 +126,7 @@
                                 <div class="form-group">
                                     <label class="control-label col-sm-2" for="product_batch">Batch:</label>
                                     <div class="col-sm-10">
-                                        <input type="text" required class="form-control"
+                                        <input autofocus type="text" required class="form-control"
                                             id="product_batch"
                                             name="product_batch"
                                             placeholder=""
