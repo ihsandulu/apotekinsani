@@ -26,6 +26,35 @@ class api extends baseController
         echo $this->db->getLastQuery();
     }
 
+    public function isibatch()
+    {
+        $where["product_batch"] = $this->request->getGet("product_batch"); // lebih aman dari $_GET
+        $product = $this->db->table("product")->where($where)->get();
+
+        $data = [
+            "product_id" => 0,
+            "product_name" => "",
+            "product_buy" => 0,
+            "product_ube" => "",
+            "stockopname_awal" => 0,
+            "product_expiredate" => ""
+        ];
+
+        foreach ($product->getResult() as $row) {
+            $data = [
+                "product_id" => $row->product_id,
+                "product_name" => $row->product_name,
+                "product_buy" => $row->product_buy,
+                "product_ube" => $row->product_ube,
+                "product_stock" => $row->product_stock,
+                "product_expiredate" => $row->product_expiredate
+            ];
+        }
+
+        return $this->response->setJSON($data);
+    }
+
+
     public function caribatch()
     {
         $where["product_batch"] = $_GET["product_batch"];
