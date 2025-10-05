@@ -20,8 +20,7 @@ class transactionp_m extends core_m
         $us = $this->db
             ->table("transaction")
             ->getWhere($transactiond);
-        /* echo $this->db->getLastquery();
-        die; */
+        // echo $this->db->getLastquery();die;
         $larang = array("log_id", "id", "user_id", "action", "data", "transaction_id_dep", "trx_id", "trx_code");
         if ($us->getNumRows() > 0) {
             foreach ($us->getResult() as $transaction) {
@@ -92,10 +91,12 @@ class transactionp_m extends core_m
                     $input[$e] = $this->request->getPost($e);
                 }
             }
+            // dd($input);
+            if(!isset($_POST["member_id"])){$input["member_id"]=0;}
             $input["store_id"] = session()->get("store_id");
             $this->db->table('transaction')->update($input, array("transaction_id" => $this->request->getPost("transaction_id")));
             $data["message"] = "Update Success";
-            //echo $this->db->last_query();die;   
+            // echo $this->db->getLastQuery();die;   
             
         }
         return $data;

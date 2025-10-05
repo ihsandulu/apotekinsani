@@ -84,7 +84,7 @@
                                             ->get();
                                         //echo $this->db->getLastQuery();
                                         ?>
-                                        <select class="form-control select" id="member_id" name="Member_id">
+                                        <select class="form-control select" id="member_id" name="member_id">
                                             <option value="" <?= ($member_id == "") ? "selected" : ""; ?>>Pilih Member</option>
                                             <?php
                                             foreach ($member->getResult() as $member) { ?>
@@ -96,7 +96,7 @@
                                 <div class="form-group">
                                     <label class="control-label col-sm-2" for="transaction_resep">Biaya Tambahan:</label>
                                     <div class="col-sm-10">
-                                        <input required type="resep" autofocus class="form-control" id="transaction_resep" name="transaction_resep" placeholder="" value="<?= $transaction_resep; ?>">
+                                        <input type="resep" autofocus class="form-control" id="transaction_resep" name="transaction_resep" placeholder="" value="<?= $transaction_resep; ?>">
                                     </div>
                                 </div>
 
@@ -166,7 +166,7 @@
                                     <?php
                                     $builder = $this->db
                                         ->table("transaction")
-                                        ->select("*,GROUP_CONCAT(cicilan.cicilan_nominal SEPARATOR ',') as cicilan_list")
+                                        ->select("*,transaction.transaction_id as transaction_id,GROUP_CONCAT(cicilan.cicilan_nominal SEPARATOR ',') as cicilan_list")
                                         ->join("store", "store.store_id=transaction.store_id", "left")
                                         ->join("cicilan", "cicilan.transaction_id=transaction.transaction_id", "left")
                                         ->join("user", "user.user_id=transaction.cashier_id", "left")

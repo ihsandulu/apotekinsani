@@ -78,6 +78,7 @@
                                         $product = $this->db->table("product")
                                             ->join("sell", "sell.product_id=product.product_id", "left")
                                             ->where("product.store_id", session()->get("store_id"))
+                                            ->where("product.product_customer", "1")
                                             ->where("sell.store_id", "1")
                                             ->where("sell.positionm_id", $positionm_id)
                                             ->orderBy("TRIM(`product`.`product_name`)", "ASC")
@@ -85,14 +86,14 @@
                                         // echo $this->db->getLastQuery();
                                         ?>
                                         <select onchange="harga()" required class="form-control select" id="product_id" name="product_id">
-                                            <option data-transactiond_price="0" value="" <?= ($product_id == "") ? "selected" : ""; ?>>Pilih Product</option>
+                                            <option data-transactiond_price="0" transactiond_price="0" value="" <?= ($product_id == "") ? "selected" : ""; ?>>Pilih Product</option>
                                             <?php
                                             foreach ($product->getResult() as $product) { ?>
                                                 <option data-transactiond_price="<?= $product->sell_price; ?>" value="<?= $product->product_id; ?>" <?= ($product_id == $product->product_id) ? "selected" : ""; ?>><?= $product->product_name; ?></option>
                                             <?php } ?>
                                         </select>
                                         <script>
-                                            function harga() {
+                                            function harga() {                                                
                                                 let transactiond_price = $("#product_id option:selected").data("transactiond_price");
                                                 $("#transactiond_price").val(transactiond_price);
                                             }

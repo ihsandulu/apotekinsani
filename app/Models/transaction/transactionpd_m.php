@@ -42,12 +42,14 @@ class transactionpd_m extends core_m
             ->where("store_id", session()->get("store_id"))
             ->where("positionm_default", "1")
             ->get();
+            // echo $this->db->getLastQuery();die;
         $positionm_id = 0;
         foreach ($positionm->getResult() as $row) {
             $positionm_id = $row->positionm_id;
         }
 
         $member = $this->db->table("member")->where("member_id", $this->request->getGet("member_id"))->get();
+        // echo $this->db->getLastQuery();die;
         foreach ($member->getResult() as $row) {
             $positionm_id = $row->positionm_id;
         }
