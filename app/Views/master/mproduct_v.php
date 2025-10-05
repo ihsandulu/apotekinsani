@@ -1,4 +1,16 @@
-<?php echo $this->include("template/header_v"); ?>
+<?php echo $this->include("template/header_v");
+
+if (isset($_GET["psupplier"])) {
+    $psupplier = $this->request->getGet("psupplier");
+} else {
+    $psupplier = 0;
+}
+if (isset($_GET["pcustomer"])) {
+    $pcustomer = $this->request->getGet("pcustomer");
+} else {
+    $pcustomer = 0;
+}
+?>
 <style>
     .text-small {
         font-size: 10px;
@@ -120,6 +132,16 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
+                                    <div class="col-sm-12">Customer Product:
+                                        <input <?= ($product_customer == 1) ? "checked" : ""; ?> type="checkbox" class="" id="product_customer" name="product_customer" placeholder="" value="1">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-12">Supplier Product:
+                                        <input <?= ($product_supplier == 1) ? "checked" : ""; ?> type="checkbox" class="" id="product_supplier" name="product_supplier" placeholder="" value="1">
+                                    </div>
+                                </div>
+                                <div class="form-group">
                                     <label class="control-label col-sm-2" for="product_description">Deskripsi:</label>
                                     <div class="col-sm-10">
                                         <input type="text" class="form-control" id="product_description" name="product_description" placeholder="" value="<?= $product_description; ?>">
@@ -180,7 +202,7 @@
                                                 let sell_percent = parseInt($("#sell_percent" + id).val());
                                                 let product_buy = parseInt($("#product_buy").val());
                                                 let bproduct_buy = 1;
-                                                if (product_buy>0) {
+                                                if (product_buy > 0) {
                                                     bproduct_buy = product_buy;
                                                 }
                                                 let sell_price = ((bproduct_buy * sell_percent) / 100) + product_buy;
@@ -191,7 +213,7 @@
                                                 let sell_price = parseInt($("#sell_price" + id).val());
                                                 let product_buy = parseInt($("#product_buy").val());
                                                 let bproduct_buy = 1;
-                                                if (product_buy>0) {
+                                                if (product_buy > 0) {
                                                     bproduct_buy = product_buy;
                                                 }
                                                 let sell_percent = ((sell_price - product_buy) / bproduct_buy) * 100;
@@ -281,6 +303,12 @@
                             ->join("unit", "unit.unit_id=product.unit_id", "left")
                             ->join("store", "store.store_id=product.store_id", "left")
                             ->where("product.store_id", session()->get("store_id"));
+                        if ($psupplier == 1) {
+                            $builder->where("product_supplier", "1");
+                        }
+                        if ($pcustomer == 1) {
+                            $builder->where("product_customer", "1");
+                        }
                         if ($search !== '') {
                             $builder->groupStart()
                                 ->like('category.category_name', $search)
@@ -301,6 +329,12 @@
                                 <div class="col-12 text-danger" style="font-size:12px; font-weight:bold;">Kosongkan kolom pencarian ini, untuk menampilkan semua data!</div>
                                 <div class="col-auto">
                                     <input data-bs-toggle="tooltip" data-bs-placement="top" title="Kosongkan kolom pencarian ini, untuk menampilkan semua data" type="text" name="search" value="<?= esc($search) ?>" style="width:400px;" class="form-control" placeholder="Cari ...">
+                                </div>
+                                <div class="col-auto">
+                                    Supplier <input type="checkbox" name="psupplier" value="1" <?= ($psupplier == 1) ? "checked" : ""; ?>>
+                                </div>
+                                <div class="col-auto">
+                                    Customer <input type="checkbox" name="pcustomer" value="1" <?= ($pcustomer == 1) ? "checked" : ""; ?>>
                                 </div>
                                 <div class="col-auto">
                                     <button type="submit" class="btn btn-primary">Cari</button>
@@ -336,6 +370,12 @@
                                         ->join("unit", "unit.unit_id=product.unit_id", "left")
                                         ->join("store", "store.store_id=product.store_id", "left")
                                         ->where("product.store_id", session()->get("store_id"));
+                                    if ($psupplier == 1) {
+                                        $builder->where("product_supplier", "1");
+                                    }
+                                    if ($pcustomer == 1) {
+                                        $builder->where("product_customer", "1");
+                                    }
                                     if ($search !== '') {
                                         $builder->groupStart()
                                             ->like('category.category_name', $search)
@@ -438,7 +478,11 @@
                                                     });
                                                 </script>
                                             </td>
-                                            <td><?= $usr->product_ube; ?></td>
+                                            <td>
+                                                <div><?= $usr->product_ube; ?></div>
+                                                <div class="text-small">Supplier : <?= ($usr->product_supplier == 1) ? "Ya" : "Tidak"; ?></div>
+                                                <div class="text-small">Customer : <?= ($usr->product_customer == 1) ? "Ya" : "Tidak"; ?></div>
+                                            </td>
                                             <?php
                                             $limit = $usr->product_countlimit;
                                             $stock = $usr->product_stock;

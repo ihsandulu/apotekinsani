@@ -35,6 +35,8 @@ class mproduct_m extends core_m
             foreach ($this->db->getFieldNames('product') as $field) {
                 $data[$field] = "";
             }
+            $data["product_customer"] = "1";
+            $data["product_supplier"] = "1";
             $ubeno = "UBE" . date("ymdHis");
             $data["product_ube"] = $ubeno;
             $data["product_id"] = 0;
