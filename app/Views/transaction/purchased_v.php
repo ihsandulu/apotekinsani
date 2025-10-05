@@ -85,22 +85,24 @@ if (isset($_GET["to"])) {
                                         $product = $this->db->table("product")
                                             ->join("unit", "unit.unit_id=product.unit_id", "left")
                                             ->where("product.store_id", session()->get("store_id"))
+                                            ->where("product.product_supplier", "1")
                                             ->orderBy("product.product_name", "ASC")
                                             ->get();
                                         //echo $this->db->getLastQuery();
                                         ?>
                                         <select required onchange="unitname()" class="form-control select" id="product_id" name="product_id">
-                                            <option unit_name="" value="" <?= ($product_id == "") ? "selected" : ""; ?>>Pilih Produk</option>
+                                            <option unit_name="" product_buy="" value="" <?= ($product_id == "") ? "selected" : ""; ?>>Pilih Produk</option>
                                             <?php
                                             foreach ($product->getResult() as $product) { ?>
-                                                <option unit_name="<?= $product->unit_name; ?>" value="<?= $product->product_id; ?>" <?= ($product_id == $product->product_id) ? "selected" : ""; ?>><?= $product->product_name; ?></option>
+                                                <option unit_name="<?= $product->unit_name; ?>" product_buy="<?= $product->product_buy; ?>" value="<?= $product->product_id; ?>" <?= ($product_id == $product->product_id) ? "selected" : ""; ?>><?= $product->product_name; ?></option>
                                             <?php } ?>
                                         </select>
                                         <script>
                                             function unitname() {
-                                                ;
                                                 let unit_name = $('#product_id option:selected').attr("unit_name");
+                                                let product_buy = $('#product_id option:selected').attr("product_buy");
                                                 $("#unit_name").html(unit_name);
+                                                $("#purchased_sprice").val(product_buy);
                                             }
                                         </script>
                                     </div>
