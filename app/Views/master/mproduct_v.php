@@ -105,6 +105,15 @@ if (isset($_GET["pcustomer"])) {
 
                                     </div>
                                 </div>
+                                
+                                
+                                <div class="form-group">
+                                    <label class="control-label col-sm-2" for="product_name">Nama Produk:</label>
+                                    <div class="col-sm-10">
+                                        <input required type="text" class="form-control" id="product_name" name="product_name" placeholder="" value="<?= $product_name; ?>">
+                                    </div>
+                                </div>
+
                                 <div class="form-group">
                                     <label class="control-label col-sm-2" for="unit_id">Unit:</label>
                                     <div class="col-sm-10">
@@ -115,22 +124,30 @@ if (isset($_GET["pcustomer"])) {
                                             ->get();
                                         //echo $this->db->getLastQuery();
                                         ?>
-                                        <select class="form-control select" id="unit_id" name="unit_id">
+                                        Per
+                                        <select class="" id="unit_id" name="unit_id">
                                             <option value="0" <?= ($unit_id == "0") ? "selected" : ""; ?>>Pilih Unit</option>
                                             <?php
                                             foreach ($unit->getResult() as $unit) { ?>
                                                 <option value="<?= $unit->unit_id; ?>" <?= ($unit_id == $unit->unit_id) ? "selected" : ""; ?>><?= $unit->unit_name; ?></option>
                                             <?php } ?>
                                         </select>
+                                        =
+                                        <input type="text" class="" id="product_nomsec" name="product_nomsec" placeholder="" value="<?= $product_nomsec; ?>">
+                                        <select class="" id="product_unitsec" name="product_unitsec">
+                                            <option value="0" <?= ($unit_id == "0") ? "selected" : ""; ?>>Pilih Unit</option>
+                                            <?php
+                                             $unit = $this->db->table("unit")
+                                            ->where("store_id", session()->get("store_id"))
+                                            ->orderBy("unit_name", "ASC")
+                                            ->get();
+                                            foreach ($unit->getResult() as $unit) { ?>
+                                                <option value="<?= $unit->unit_id; ?>" <?= ($product_unitsec == $unit->unit_id) ? "selected" : ""; ?>><?= $unit->unit_name; ?></option>
+                                            <?php } ?>
+                                        </select>
+                                    </div>
+                                </div>
 
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label col-sm-2" for="product_name">Nama Produk:</label>
-                                    <div class="col-sm-10">
-                                        <input required type="text" class="form-control" id="product_name" name="product_name" placeholder="" value="<?= $product_name; ?>">
-                                    </div>
-                                </div>
                                 <div class="form-group">
                                     <div class="col-sm-12">Customer Product:
                                         <input <?= ($product_customer == 1) ? "checked" : ""; ?> type="checkbox" class="" id="product_customer" name="product_customer" placeholder="" value="1">
@@ -368,6 +385,7 @@ if (isset($_GET["pcustomer"])) {
                                         ->table("product")
                                         ->join("category", "category.category_id=product.category_id", "left")
                                         ->join("unit", "unit.unit_id=product.unit_id", "left")
+                                        ->join("(SELECT unit_id as unitid2, unit_name as unitname2 FROM unit) unit2", "unit2.unitid2=product.product_unitsec", "left")
                                         ->join("store", "store.store_id=product.store_id", "left")
                                         ->where("product.store_id", session()->get("store_id"));
                                     if ($psupplier == 1) {
@@ -454,7 +472,7 @@ if (isset($_GET["pcustomer"])) {
                                             <?php } ?>
                                             <td><?= $no++; ?></td>
                                             <td><?= $usr->category_name; ?></td>
-                                            <td><?= $usr->unit_name; ?></td>
+                                            <td>Per <?= $usr->unit_name; ?> <?= ($usr->product_nomsec)?" = ".$usr->product_nomsec:""; ?> <?= $usr->unitname2; ?></td>
                                             <td><?= $usr->product_name; ?></td>
                                             <td>
                                                 <input type="text" class="form-control" id="product_batch<?= $usr->product_id; ?>" placeholder="" value="<?= $usr->product_batch; ?>">
