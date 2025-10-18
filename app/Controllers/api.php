@@ -54,6 +54,36 @@ class api extends baseController
         return $this->response->setJSON($data);
     }
 
+    public function unitsecond()
+    { 
+        $transactiond_unit = $this->request->getGet("transactiond_unit");
+        ?>
+        <option value="0" <?= ($transactiond_unit == "0") ? "selected" : ""; ?>>Unit</option>
+        <?php
+        $unit = $this->db->table("unit")
+            ->where("unit_id", $this->request->getGet("unit_id"))
+            ->get();
+        //echo $this->db->getLastQuery();
+        ?>
+        <?php
+        foreach ($unit->getResult() as $unit) { ?>
+            <option value="<?= $unit->unit_id; ?>" <?= ($transactiond_unit == $unit->unit_id) ? "selected" : ""; ?>>
+                <?= $unit->unit_name; ?>
+            </option>
+        <?php }
+        $units = $this->db->table("unit")
+            ->where("unit_id", $this->request->getGet("product_unitsec"))
+            ->get();
+        //echo $this->db->getLastQuery();
+        ?>
+        <?php
+        foreach ($units->getResult() as $units) { ?>
+            <option value="<?= $units->unit_id; ?>" <?= ($transactiond_unit == $units->unit_id) ? "selected" : ""; ?>>
+                <?= $units->unit_name; ?>
+            </option>
+        <?php }
+    }
+
 
     public function caribatch()
     {

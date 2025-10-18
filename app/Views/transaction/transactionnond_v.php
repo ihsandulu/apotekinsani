@@ -81,14 +81,18 @@
                                             ->get();
                                         //echo $this->db->getLastQuery();
                                         ?>
-                                        <select required class="form-control select" id="product_id" name="product_id">
-                                            <option value="" <?= ($product_id == "") ? "selected" : ""; ?>>Pilih Product</option>
-                                            <?php
-                                            foreach ($product->getResult() as $product) { ?>
-                                                <option value="<?= $product->product_id; ?>" <?= ($product_id == $product->product_id) ? "selected" : ""; ?>><?= $product->product_name; ?></option>
+                                        <select required onchange="unitsec()" class="form-control select" id="product_id" name="product_id">
+                                            <option data-product-unitsec="" data-unit-id="" value="" <?= ($product_id == "") ? "selected" : ""; ?>>Pilih Produk</option>
+                                            <?php foreach ($product->getResult() as $p) { ?>
+                                                <option
+                                                    data-product-unitsec="<?= $p->product_unitsec; ?>"
+                                                    data-unit-id="<?= $p->unit_id; ?>"
+                                                    value="<?= $p->product_id; ?>"
+                                                    <?= ($product_id == $p->product_id) ? "selected" : ""; ?>>
+                                                    <?= $p->product_name; ?>
+                                                </option>
                                             <?php } ?>
                                         </select>
-
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -97,7 +101,39 @@
                                         <input required type="number" autofocus class="form-control" id="transactiond_qty" name="transactiond_qty" placeholder="" value="<?= $transactiond_qty; ?>">
                                     </div>
                                 </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-2" for="transactiond_unit">Unit:</label>
+                                    <div class="col-sm-10">
+                                        <select class="form-group" id="transactiond_unit" name="transactiond_unit">
 
+                                        </select>
+                                        <script>
+                                            function unitsec() {
+                                                let transactiond_unit = <?= json_encode($transactiond_unit ?? ''); ?>;
+                                                let selected = $("#product_id option:selected");
+                                                let unit_id = selected.data("unit-id");
+                                                let product_unitsec = selected.data("product-unitsec");
+
+                                                if (!unit_id || !product_unitsec) {
+                                                    alert("Data unit tidak lengkap untuk produk ini.");
+                                                    return;
+                                                }
+
+                                                $.get("<?= base_url('api/unitsecond'); ?>", {
+                                                        transactiond_unit: transactiond_unit,
+                                                        unit_id: unit_id,
+                                                        product_unitsec: product_unitsec
+                                                    })
+                                                    .done(function(data) {
+                                                        $("#transactiond_unit").html(data);
+                                                    })
+                                                    .fail(function() {
+                                                        alert("Gagal memuat data unit kedua.");
+                                                    });
+                                            }
+                                        </script>
+                                    </div>
+                                </div>
 
 
                                 <input type="hidden" name="transactiondqty" value="<?= $transactiond_qty; ?>" />
@@ -154,12 +190,14 @@
                                         <th>No. Transaksi</th>
                                         <th>Produk</th>
                                         <th>Qty</th>
+                                        <th>Unit</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php
                                     $builder = $this->db
                                         ->table("transactiond")
+                                        ->join("unit", "unit.unit_id=transactiond.transactiond_unit", "left")
                                         ->join("transaction", "transaction.transaction_id=transactiond.transaction_id", "left")
                                         ->join("store", "store.store_id=transactiond.store_id", "left")
                                         ->join("product", "product.product_id=transactiond.product_id", "left")
@@ -227,6 +265,7 @@
                                             <td><?= $usr->transaction_no; ?></td>
                                             <td><?= $usr->product_name; ?></td>
                                             <td><?= number_format($usr->transactiond_qty, 0, ".", ","); ?></td>
+                                            <td><?= $usr->unit_name; ?></td>
                                         </tr>
                                     <?php } ?>
                                 </tbody>

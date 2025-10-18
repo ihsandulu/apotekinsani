@@ -129,6 +129,9 @@ class mproduct_m extends core_m
                     $input[$e] = $this->request->getPost($e);
                 }
             }
+            
+            if(!isset($_POST["product_supplier"])){$input["product_supplier"] =0;}
+            if(!isset($_POST["product_customer"])){$input["product_customer"] =0;}
 
             $input["store_id"] = session()->get("store_id");
 
@@ -184,8 +187,11 @@ class mproduct_m extends core_m
                     $input[$e] = $this->request->getPost($e);
                 }
             }
+            if(!isset($_POST["product_supplier"])){$input["product_supplier"] =0;}
+            if(!isset($_POST["product_customer"])){$input["product_customer"] =0;}
             $input["store_id"] = session()->get("store_id");
             $this->db->table('product')->update($input, array("product_id" => $product_id));
+            // echo $this->db->getLastQuery();
 
             foreach ($this->request->getPost() as $e => $f) {
                 if (substr($e, 0, 10) == "sell_price") {

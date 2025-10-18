@@ -112,13 +112,13 @@ if (isset($_GET["to"])) {
                                 <div class="form-group">
                                     <label class="control-label col-sm-2" for="purchase_indate">Tgl Datang:</label>
                                     <div class="col-sm-10">
-                                        <input required type="date" autofocus class="form-control" id="purchase_indate" name="purchase_indate" placeholder="" value="<?= $purchase_indate; ?>">
+                                        <input type="date" autofocus class="form-control" id="purchase_indate" name="purchase_indate" placeholder="" value="<?= $purchase_indate; ?>">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-sm-2" for="purchase_duedate">Jatuh Tempo:</label>
                                     <div class="col-sm-10">
-                                        <input required type="date" autofocus class="form-control" id="purchase_duedate" name="purchase_duedate" placeholder="" value="<?= $purchase_duedate; ?>">
+                                        <input type="date" autofocus class="form-control" id="purchase_duedate" name="purchase_duedate" placeholder="" value="<?= $purchase_duedate; ?>">
                                     </div>
                                 </div>
                                 <div class="form-group">

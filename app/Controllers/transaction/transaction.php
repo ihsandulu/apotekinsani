@@ -583,7 +583,7 @@ class transaction extends baseController
         echo $data["message"];
     }
 
-    
+
     public function pelunasan()
     {
         $account_id = $this->request->getGet("account_id");
@@ -925,7 +925,7 @@ class transaction extends baseController
                                 } ?>
                                 <input type="hidden" id="bayarannya" value="<?= $transaction->transaction_pay; ?>" />
                             </th>
-                            <th class="dibayar"><?= number_format($transaction->transaction_pay,0,",","."); ?></th>
+                            <th class="dibayar"><?= number_format($transaction->transaction_pay, 0, ",", "."); ?></th>
                         </tr>
                         <tr>
                             <th colspan="2">
@@ -933,7 +933,7 @@ class transaction extends baseController
                                 <input type="hidden" id="kembaliannya" value="<?= $transaction->transaction_change; ?>" />
                                 <input type="hidden" id="status" value="<?= $transaction->transaction_status; ?>" />
                             </th>
-                            <th class="kembalian"><?= number_format($transaction->transaction_change,0,",","."); ?></th>
+                            <th class="kembalian"><?= number_format($transaction->transaction_change, 0, ",", "."); ?></th>
                         </tr>
                     </tbody>
                 </table>
@@ -954,10 +954,12 @@ class transaction extends baseController
         if ($this->request->getGet("product_name") != "") {
             $builder->like("product.product_name", $this->request->getGet("product_name"), "BOTH");
         }
+        $builder->where("product.product_customer", 1);
         $builder->where("product.store_id", session()->get("store_id"));
         $product = $builder->orderBy("product_name")
             ->limit(20)
             ->get();
+        // echo $this->db->getLastQuery();
         foreach ($product->getResult() as $product) { ?>
             <?php
             if (
@@ -1042,6 +1044,7 @@ class transaction extends baseController
                 if ($this->request->getGet("product_name") != "") {
                     $usr1->like("product.product_name", $this->request->getGet("product_name"), "BOTH");
                 }
+                $builder->where("product.product_customer", 1);
                 $usr = $usr1->orderBy("product_name", "ASC")
                     ->limit(20)
                     ->get();

@@ -71,10 +71,22 @@ class transactionnond_m extends core_m
             $stokawal = 0;
             foreach ($product->getResult() as $row) {
                 $stokawal = $row->product_stock;
+                $unit_id = $row->unit_id;
+                $product_nomsec = $row->product_nomsec;
+                $product_unitsec = $row->product_unitsec;
             }
             $stokakhir = $stokawal - $input["transactiond_qty"];
             $input["transactiond_stokawal"] = $stokawal;
             $input["transactiond_stokakhir"] = $stokakhir;
+
+            //cari nominal asli
+            if ($input["transactiond_unit"]==$product_unitsec) {
+                $transactiond_nomasli=$input["transactiond_qty"]/$product_nomsec;
+            }else{
+                $transactiond_nomasli=$input["transactiond_qty"];
+            }
+            $input["transactiond_nomasli"]=$transactiond_nomasli;
+            
             $builder = $this->db->table('transactiond');
             $builder->insert($input);
             /* echo $this->db->getLastQuery();

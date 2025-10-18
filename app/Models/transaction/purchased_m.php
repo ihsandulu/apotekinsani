@@ -33,10 +33,12 @@ class purchased_m extends core_m
             }
         } else {
             foreach ($this->db->getFieldNames('purchased') as $field) {
-                $data[$field] = "0";
+                $data[$field] = "";
             }
             $data["purchased_outdate"] = "";
             $data["purchased_batch"] = "";
+            $data["purchased_discount"] = "0";
+            
         }
 
         

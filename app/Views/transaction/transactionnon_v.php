@@ -84,7 +84,7 @@
                                             ->get();
                                         //echo $this->db->getLastQuery();
                                         ?>
-                                        <select required class="form-control select" id="member_id" name="Member_id">
+                                        <select class="form-control select" id="member_id" name="Member_id">
                                             <option value="" <?= ($member_id == "") ? "selected" : ""; ?>>Pilih Member</option>
                                             <?php
                                             foreach ($member->getResult() as $member) { ?>
